@@ -1,1 +1,3 @@
 # HGCALModMaps
+A place to make code to create module maps for HGCAL cassettes
+More info to come...
