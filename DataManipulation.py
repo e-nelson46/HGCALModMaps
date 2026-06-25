@@ -103,7 +103,7 @@ for index, row in cass.iterrows():
     hatch = msp.add_hatch()
     
     #Explicitly force the solid fill to match your color index
-    hatch.set_solid_fill(color=1)
+    hatch.set_solid_fill(color=72)
     
     #Add the calculated vertices as a closed polyline boundary
     hatch.paths.add_polyline_path(module_coords, is_closed=True)
@@ -111,8 +111,31 @@ for index, row in cass.iterrows():
     msp.add_lwpolyline(module_coords, close=True)
 
     #for i in range (0,len(module_coords)):
-    #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
+    #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})
+     
+    ########################
+    #       Add text       #
+    ########################
+    
+    center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
+    center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
 
+    module_text = row.isEngine #Text to be printed
+
+    #Printing of the text
+    msp.add_text(
+    module_text, 
+    dxfattribs={
+        "color": 2,
+        "height": 7.5,  # Text height/size
+        }
+    ).set_placement(
+        (center_x, center_y),              # The alignment point (the middle)
+        align=ezdxf.enums.TextEntityAlignment.CENTER  # Centers it precisely horizontally and vertically
+    )
+
+
+    
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
