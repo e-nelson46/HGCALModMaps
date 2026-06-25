@@ -2,7 +2,32 @@ import ezdxf
 import pandas as pd
 import os
 
-#Declare some important stuff right away
+#############Defining functions to draw the shapes#############
+
+def draw_solid_dot(msp, location, radius=1.0, color=1):
+    """
+    Draws a solid, filled circular dot at a specified location.
+
+    :param msp: The ezdxf modelspace object.
+    :param location: A tuple (x, y) for the center of the dot.
+    :param radius: The size/radius of the dot.
+    :param color: AutoCAD Color Index (default 1 = Red).
+    """
+    # 1. Create a blank hatch
+    hatch = msp.add_hatch()
+
+    # 2. Explicitly force the SOLID FILL to the desired color index
+    hatch.set_solid_fill(color=color)
+
+    # 3. Add the circular boundary path to the hatch
+    path = hatch.paths.add_edge_path()
+    path.add_arc(center=location, radius=radius)
+
+    # 4. Add the outer circle line matching the color
+    msp.add_circle(center=location, radius=radius, dxfattribs={"color": color})
+
+############Initial setup to open files and create ezdxf objects#############
+
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
@@ -10,7 +35,8 @@ shapes_layer = doc.layers.new("SHAPES")
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 
-# Wrapped both conditions in parentheses inside the main brackets
+############Cutting panda dataframe############
+
 df = df[(df.plane == 33) & (df.icassette == 2)]
 
 col = [
@@ -20,9 +46,11 @@ col = [
     'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine'
 ]
 cass = df[col]
+print("Cassestte dataframe:")
+print(cass)
 
-# We will store a list of coordinate lists for all modules here
-all_modules_polygons = []
+############Drawing the objects############
+print("Drawing modules...")
 
 # .iterrows() lets you step through the DataFrame one row at a time
 for index, row in cass.iterrows():
@@ -47,12 +75,12 @@ for index, row in cass.iterrows():
     #could probably try printing right here, and then we will not have to save each
     #individual list in the all_modules_polygons master list...
     for i in range (0,len(module_coords)):
-        msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})
-    
+        msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
 
-    # Add this completed module's coordinates to our master list
-    all_modules_polygons.append(module_coords)
 
-#print(all_modules_polygons)
-doc.saveas("Test_Cass.dxf")
-print("Yep it worked")
+############Saving objects to file#############
+filename = "Test_0_1"
+output_folder = "TestDXFfiles"
+file_path = os.path.join(output_folder, filename)
+doc.saveas(file_path)
+print("Yep it worked") 
