@@ -27,8 +27,13 @@ def draw_solid_dot(msp, location, radius=1.0, color=1):
     # 4. Add the outer circle line matching the color
     msp.add_circle(center=location, radius=radius, dxfattribs={"color": color})
 
-############Initial setup to open files and create ezdxf objects#############
 
+############Inputs for Cassette and Layer Number###############
+layer = int(input("Enter layer number: "))
+cassnum = int(input("Enter cassette number: "))
+
+
+############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
@@ -37,7 +42,7 @@ shapes_layer = doc.layers.new("SHAPES")
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 
 # Wrapped both conditions in parentheses inside the main brackets
-df = df[(df.plane == 33)& (df.icassette == 3)]
+df = df[(df.plane == layer)& (df.icassette == cassnum)]
 
 col = [
     'plane','u','v','itype','typecode',
@@ -102,8 +107,8 @@ for index, row in cass.iterrows():
 
 
 ############Saving objects to file#############
-filename = "Test_0_1.dxf"
+filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
 output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
-print("Yep it worked") 
+print("Saving to "+file_path) 
