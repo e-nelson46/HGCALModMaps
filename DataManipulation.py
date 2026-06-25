@@ -35,15 +35,13 @@ shapes_layer = doc.layers.new("SHAPES")
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 
-############Cutting panda dataframe############
-
-df = df[(df.plane == 33) & (df.icassette == 2)]
+# Wrapped both conditions in parentheses inside the main brackets
+df = df[(df.plane == 33)]
 
 col = [
-    'plane','u','v','itype',
-    #'typecode',
+    'plane','u','v','itype','typecode',
     'x0','y0','irot','nvertices', 'vx_0','vy_0','vx_1','vy_1','vx_2','vy_2',
-    'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine'
+    'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine','icassette'
 ]
 cass = df[col]
 print("Cassestte dataframe:")
@@ -68,6 +66,8 @@ for index, row in cass.iterrows():
         # We wrap it in int() to ensure they are integers as requested
         x = int(row[f'vx_{i}'])
         y = int(row[f'vy_{i}'])
+
+        vector = [x,y]
         
         # Add the (x, y) pair to the list
         module_coords.append((x, y))
