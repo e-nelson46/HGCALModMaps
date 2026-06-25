@@ -97,9 +97,21 @@ for index, row in cass.iterrows():
         # Add the (x, y) pair to the list
         module_coords.append((x_rot,y_rot))
 
-    #after defining all the coordinates for a single mod, draw it on doc
-    for i in range (0,len(module_coords)):
-        msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
+    ########################
+    #       Add color      #
+    ########################
+    hatch = msp.add_hatch()
+    
+    #Explicitly force the solid fill to match your color index
+    hatch.set_solid_fill(color=1)
+    
+    #Add the calculated vertices as a closed polyline boundary
+    hatch.paths.add_polyline_path(vertices, is_closed=True)
+
+    msp.add_lwpolyline(module_coords, close=True)
+
+    #for i in range (0,len(module_coords)):
+    #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
 
 
 ############Saving objects to file#############
