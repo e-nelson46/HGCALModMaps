@@ -86,8 +86,19 @@ for index, row in cass.iterrows():
 
     #could probably try printing right here, and then we will not have to save each
     #individual list in the all_modules_polygons master list...
-    for i in range (0,len(module_coords)):
-        msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
+    
+    hatch = msp.add_hatch()
+    
+    # 3. Explicitly force the solid fill to match your color index
+    hatch.set_solid_fill(color=1)
+    
+    # 4. Add the calculated vertices as a closed polyline boundary
+    hatch.paths.add_polyline_path(vertices, is_closed=True)
+
+    msp.add_lwpolyline(module_coords, close=True)
+
+    #for i in range (0,len(module_coords)):
+    #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
 
 
 ############Saving objects to file#############
