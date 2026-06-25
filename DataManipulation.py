@@ -37,7 +37,7 @@ shapes_layer = doc.layers.new("SHAPES")
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 
 # Wrapped both conditions in parentheses inside the main brackets
-df = df[(df.plane == 33)]
+df = df[(df.plane == 33)& (df.icassette == 3)]
 
 col = [
     'plane','u','v','itype','typecode',
@@ -60,7 +60,7 @@ for index, row in cass.iterrows():
     # This list will hold the (x, y) tuples for the current module
     module_coords = []
     
-    theta = -(np.radians(30 * (df.icassette - 1)))
+    theta = -(np.radians(30 * (row['icassette'] - 1)))
 
     c, s = np.cos(theta), np.sin(theta)
     R = np.array([
@@ -76,11 +76,13 @@ for index, row in cass.iterrows():
         x = int(row[f'vx_{i}'])
         y = int(row[f'vy_{i}'])
 
-        vector = [x,y]
+        vector = np.array([[x], [y]])        
         rotated_coordinates = R @ vector
+        x_rot = float(rotated_coordinates[0][0])
+        y_rot = float(rotated_coordinates[1][0])
 
         # Add the (x, y) pair to the list
-        module_coords.append((x, y))
+        module_coords.append((x_rot,y_rot))
 
     #could probably try printing right here, and then we will not have to save each
     #individual list in the all_modules_polygons master list...
