@@ -1,6 +1,7 @@
 import ezdxf
 import pandas as pd
 import os
+import numpy as np
 
 #############Defining functions to draw the shapes#############
 
@@ -59,6 +60,14 @@ for index, row in cass.iterrows():
     # This list will hold the (x, y) tuples for the current module
     module_coords = []
     
+    theta = -(np.radians(30 * (df.icassette - 1)))
+
+    c, s = np.cos(theta), np.sin(theta)
+    R = np.array([
+        [c, -s],
+        [s,  c]
+    ])
+
     # Loop from 0 up to the number of vertices (e.g., 0 to 5 for a hexagon)
     for i in range(num_vertices):
         
@@ -68,7 +77,8 @@ for index, row in cass.iterrows():
         y = int(row[f'vy_{i}'])
 
         vector = [x,y]
-        
+        rotated_coordinates = R @ vector
+
         # Add the (x, y) pair to the list
         module_coords.append((x, y))
 
@@ -79,7 +89,7 @@ for index, row in cass.iterrows():
 
 
 ############Saving objects to file#############
-filename = "Test_0_1"
+filename = "Test_0_1.dxf"
 output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
