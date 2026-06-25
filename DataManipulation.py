@@ -44,6 +44,7 @@ df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 # Wrapped both conditions in parentheses inside the main brackets
 df = df[(df.plane == layer)& (df.icassette == cassnum)]
 
+#Define important columns
 col = [
     'plane','u','v','itype','typecode',
     'x0','y0','irot','nvertices', 'vx_0','vy_0','vx_1','vy_1','vx_2','vy_2',
@@ -56,6 +57,11 @@ print(cass)
 ############Drawing the objects############
 print("Drawing modules...")
 
+
+###################################################
+#           Draw modules one by one               #
+###################################################
+  
 # .iterrows() lets you step through the DataFrame one row at a time
 for index, row in cass.iterrows():
     
@@ -65,8 +71,10 @@ for index, row in cass.iterrows():
     # This list will hold the (x, y) tuples for the current module
     module_coords = []
     
+    #Angle of rotation
     theta = -(np.radians(30 * (row['icassette'] - 1)))
 
+    #rotation matrix calculation
     c, s = np.cos(theta), np.sin(theta)
     R = np.array([
         [c, -s],
@@ -89,8 +97,7 @@ for index, row in cass.iterrows():
         # Add the (x, y) pair to the list
         module_coords.append((x_rot,y_rot))
 
-    #could probably try printing right here, and then we will not have to save each
-    #individual list in the all_modules_polygons master list...
+    #after defining all the coordinates for a single mod, draw it on doc
     for i in range (0,len(module_coords)):
         msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
 
