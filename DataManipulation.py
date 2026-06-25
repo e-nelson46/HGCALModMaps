@@ -106,7 +106,7 @@ for index, row in cass.iterrows():
     hatch.set_solid_fill(color=1)
     
     #Add the calculated vertices as a closed polyline boundary
-    hatch.paths.add_polyline_path(vertices, is_closed=True)
+    hatch.paths.add_polyline_path(module_coords, is_closed=True)
 
     msp.add_lwpolyline(module_coords, close=True)
 
