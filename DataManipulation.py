@@ -34,7 +34,7 @@ cassnum = int(input("Enter cassette number: "))
 
 
 ############Initial setup to open files and create ezdxf objects#############
-doc = ezdxf.new("R2010", True)
+doc = ezdxf.new("R2000", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
 
@@ -100,19 +100,25 @@ for index, row in cass.iterrows():
     ########################
     #       Add color      #
     ########################
+    # 1. Initialize the hatch
     hatch = msp.add_hatch()
-    
-    #Explicitly force the solid fill to match your color index
-    hatch.set_solid_fill(color=1)
-    
-    #Add the calculated vertices as a closed polyline boundary
-    hatch.paths.add_polyline_path(module_coords, is_closed=True)
 
-    msp.add_lwpolyline(module_coords, close=True)
+    # 2. Set the ACI color directly on the hatch entity 
+    hatch.dxf.color = 72
+    hatch.set_solid_fill(color=72)
+
+    # 3. Ensure coordinates are clean, native Python floats (tuples of x, y)
+    clean_coords = [(float(x), float(y)) for x, y in module_coords]
+
+    # 4. Add the closed polyline path to the hatch
+    hatch.paths.add_polyline_path(clean_coords, is_closed=True)
+
+    # 5. Draw the boundary line explicitly, and match its color so it looks seamless
+    boundary = msp.add_lwpolyline(clean_coords, close=True)
+    boundary.dxf.color = 250
 
     #for i in range (0,len(module_coords)):
     #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})    
-
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
