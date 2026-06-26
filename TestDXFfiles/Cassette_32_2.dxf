@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461218.4023032407
+2461218.5008217595
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461218.4023032407
+2461218.5008217595
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{E57EB433-9974-4A0E-8857-1551F940E924}
+{C6CC0A1C-7F16-4DC3-89A0-D91B56DEF2EF}
   9
 $VERSIONGUID
   2
-{3EAC2245-1396-4CB0-93AC-EC68D89EDA41}
+{ABDDC42F-14B6-4098-BE39-8A5DBDBFA1B7}
   9
 $EXTNAMES
 290
@@ -5271,7 +5271,7 @@ AcDbEntity
   8
 0
  62
-72
+32
 100
 AcDbHatch
  10
@@ -5377,7 +5377,7 @@ AcDbPolyline
  20
 2.4082747347563846
   0
-TEXT
+MTEXT
   5
 8E
 330
@@ -5387,29 +5387,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 586.6582130520437
  20
-2.1218316837068576
+2.1218316837068585
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-586.6582130520437
- 21
-2.1218316837068576
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P HD\P Index: 3182
+  7
+BoldStyle
   0
 HATCH
   5
@@ -5421,7 +5415,7 @@ AcDbEntity
   8
 0
  62
-72
+32
 100
 AcDbHatch
  10
@@ -5527,7 +5521,7 @@ AcDbPolyline
  20
 85.9819582835
   0
-TEXT
+MTEXT
   5
 91
 330
@@ -5537,9 +5531,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 731.9876803032698
  20
@@ -5547,19 +5541,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-731.9876803032698
- 21
-85.83985279974787
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P HD\P Index: 3183
+  7
+BoldStyle
   0
 HATCH
   5
@@ -5571,7 +5559,7 @@ AcDbEntity
   8
 0
  62
-72
+42
 100
 AcDbHatch
  10
@@ -5677,7 +5665,7 @@ AcDbPolyline
  20
 85.90827473475638
   0
-TEXT
+MTEXT
   5
 94
 330
@@ -5687,29 +5675,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-441.82662881878105
+441.826628818781
  20
 85.93283591767091
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-441.82662881878105
- 21
-85.93283591767091
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P HD\P Index: 3186
+  7
+BoldStyle
   0
 HATCH
   5
@@ -5721,7 +5703,7 @@ AcDbEntity
   8
 0
  62
-72
+42
 100
 AcDbHatch
  10
@@ -5827,7 +5809,7 @@ AcDbPolyline
  20
 169.4819582835
   0
-TEXT
+MTEXT
   5
 97
 330
@@ -5837,9 +5819,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 586.7230833681149
  20
@@ -5847,19 +5829,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-586.7230833681149
- 21
-169.90085703371196
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P HD\P Index: 3187
+  7
+BoldStyle
   0
 HATCH
   5
@@ -5871,7 +5847,7 @@ AcDbEntity
   8
 0
  62
-72
+42
 100
 AcDbHatch
  10
@@ -5977,7 +5953,7 @@ AcDbPolyline
  20
 253.5556418322436
   0
-TEXT
+MTEXT
   5
 9A
 330
@@ -5987,9 +5963,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 731.8248797187103
  20
@@ -5997,19 +5973,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-731.8248797187103
- 21
-253.55787391578886
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P HD\P Index: 3188
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6021,7 +5991,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6127,7 +6097,7 @@ AcDbPolyline
  20
 1.9819582835000153
   0
-TEXT
+MTEXT
   5
 9D
 330
@@ -6137,29 +6107,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 877.2746063377941
  20
-2.150857033711955
+2.150857033711953
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-877.2746063377941
- 21
-2.150857033711955
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3238
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6171,7 +6135,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6277,7 +6241,7 @@ AcDbPolyline
  20
 85.55564183224361
   0
-TEXT
+MTEXT
   5
 A0
 330
@@ -6287,29 +6251,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-1022.232065121092
+1022.2320651210921
  20
 85.89120724912225
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1022.232065121092
- 21
-85.89120724912225
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3239
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6321,7 +6279,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6427,7 +6385,7 @@ AcDbPolyline
  20
 169.62932538098727
   0
-TEXT
+MTEXT
   5
 A3
 330
@@ -6437,29 +6395,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-1167.3338614716874
+1167.3338614716877
  20
 169.5482241311992
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1167.3338614716874
- 21
-169.5482241311992
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3240
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6471,7 +6423,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6577,7 +6529,7 @@ AcDbPolyline
  20
 253.20300892973086
   0
-TEXT
+MTEXT
   5
 A6
 330
@@ -6587,29 +6539,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1312.5189911556163
  20
-253.34957858057354
+253.3495785805735
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1312.5189911556163
- 21
-253.34957858057354
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3241
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6621,7 +6567,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6727,7 +6673,7 @@ AcDbPolyline
  20
 337.64271788225886
   0
-TEXT
+MTEXT
   5
 A9
 330
@@ -6737,9 +6683,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1457.9317917401759
  20
@@ -6747,19 +6693,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-1457.9317917401759
- 21
-337.211937263912
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P East\P Index: 3242
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6771,7 +6711,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -6877,7 +6817,7 @@ AcDbPolyline
  20
 421.21640143100257
   0
-TEXT
+MTEXT
   5
 AC
 330
@@ -6887,29 +6827,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1603.3445923247355
  20
-421.0742959472504
+421.07429594725045
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1603.3445923247355
- 21
-421.0742959472504
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3243
+  7
+BoldStyle
   0
 HATCH
   5
@@ -6921,7 +6855,7 @@ AcDbEntity
   8
 0
  62
-72
+82
 100
 AcDbHatch
  10
@@ -7011,7 +6945,7 @@ AcDbPolyline
  20
 421.2208655980931
   0
-TEXT
+MTEXT
   5
 AF
 330
@@ -7021,9 +6955,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1712.1460197455422
  20
@@ -7031,19 +6965,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1712.1460197455422
- 21
-484.02389617610555
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3244
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7055,7 +6983,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7161,7 +7089,7 @@ AcDbPolyline
  20
 169.5556418322436
   0
-TEXT
+MTEXT
   5
 B2
 330
@@ -7171,9 +7099,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 877.317147554496
  20
@@ -7181,19 +7109,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-877.317147554496
- 21
-169.5578739157889
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3252
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7205,7 +7127,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7311,7 +7233,7 @@ AcDbPolyline
  20
 253.12932538098724
   0
-TEXT
+MTEXT
   5
 B5
 330
@@ -7321,9 +7243,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1022.4189439050915
  20
@@ -7331,19 +7253,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1022.4189439050915
- 21
-253.21489079786588
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3253
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7355,7 +7271,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7461,7 +7377,7 @@ AcDbPolyline
  20
 336.70300892973086
   0
-TEXT
+MTEXT
   5
 B8
 330
@@ -7471,29 +7387,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1167.4597360217228
  20
-337.09957858057356
+337.0995785805735
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1167.4597360217228
- 21
-337.09957858057356
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3254
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7505,7 +7415,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7611,7 +7521,7 @@ AcDbPolyline
  20
 421.64271788225886
   0
-TEXT
+MTEXT
   5
 BB
 330
@@ -7621,29 +7531,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-1312.43952390439
+1312.4395239043902
  20
 421.211937263912
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-1312.43952390439
- 21
-421.211937263912
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P East\P Index: 3255
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7655,7 +7559,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7761,7 +7665,7 @@ AcDbPolyline
  20
 505.21640143100257
   0
-TEXT
+MTEXT
   5
 BE
 330
@@ -7771,29 +7675,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1457.8523244889495
  20
-505.0742959472504
+505.07429594725045
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1457.8523244889495
- 21
-505.0742959472504
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3256
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7805,7 +7703,7 @@ AcDbEntity
   8
 0
  62
-72
+122
 100
 AcDbHatch
  10
@@ -7911,7 +7809,7 @@ AcDbPolyline
  20
 588.7900849797461
   0
-TEXT
+MTEXT
   5
 C1
 330
@@ -7921,9 +7819,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1603.1817917401759
  20
@@ -7931,19 +7829,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1603.1817917401759
- 21
-588.7923170632915
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3257
+  7
+BoldStyle
   0
 HATCH
   5
@@ -7955,7 +7847,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8061,7 +7953,7 @@ AcDbPolyline
  20
 337.1293253809872
   0
-TEXT
+MTEXT
   5
 C4
 330
@@ -8071,29 +7963,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-877.0710136366033
+877.0710136366032
  20
-337.13155746453253
+337.1315574645325
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-877.0710136366033
- 21
-337.13155746453253
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3264
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8105,7 +7991,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8211,7 +8097,7 @@ AcDbPolyline
  20
 420.70300892973086
   0
-TEXT
+MTEXT
   5
 C7
 330
@@ -8221,29 +8107,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1022.4004808878294
  20
-420.84957858057356
+420.8495785805735
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1022.4004808878294
- 21
-420.84957858057356
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3265
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8255,7 +8135,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8361,7 +8241,7 @@ AcDbPolyline
  20
 505.14271788225886
   0
-TEXT
+MTEXT
   5
 CA
 330
@@ -8371,29 +8251,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-1167.524606337794
+1167.5246063377942
  20
-504.87860393057855
+504.87860393057866
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1167.524606337794
- 21
-504.87860393057855
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3266
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8405,7 +8279,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8511,7 +8385,7 @@ AcDbPolyline
  20
 588.7164014310025
   0
-TEXT
+MTEXT
   5
 CD
 330
@@ -8521,9 +8395,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1312.6487317877588
  20
@@ -8531,19 +8405,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-1312.6487317877588
- 21
-588.9076292805837
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P East\P Index: 3267
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8555,7 +8423,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8661,7 +8529,7 @@ AcDbPolyline
  20
 672.7900849797461
   0
-TEXT
+MTEXT
   5
 D0
 330
@@ -8671,29 +8539,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
-1457.68952390439
+1457.6895239043904
  20
 672.7923170632914
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1457.68952390439
- 21
-672.7923170632914
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3268
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8705,7 +8567,7 @@ AcDbEntity
   8
 0
  62
-72
+152
 100
 AcDbHatch
  10
@@ -8811,7 +8673,7 @@ AcDbPolyline
  20
 672.7945491468367
   0
-TEXT
+MTEXT
   5
 D3
 330
@@ -8821,9 +8683,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1602.935657822283
  20
@@ -8831,19 +8693,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1602.935657822283
- 21
-756.366000612035
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3269
+  7
+BoldStyle
   0
 HATCH
   5
@@ -8855,7 +8711,7 @@ AcDbEntity
   8
 0
  62
-72
+202
 100
 AcDbHatch
  10
@@ -8961,7 +8817,7 @@ AcDbPolyline
  20
 2.0556418322436176
   0
-TEXT
+MTEXT
   5
 D6
 330
@@ -8971,29 +8827,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1167.435657822283
  20
-2.0578739157889165
+2.057873915788917
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1167.435657822283
- 21
-2.0578739157889165
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3293
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9005,7 +8855,7 @@ AcDbEntity
   8
 0
  62
-72
+202
 100
 AcDbHatch
  10
@@ -9111,7 +8961,7 @@ AcDbPolyline
  20
 85.62932538098727
   0
-TEXT
+MTEXT
   5
 D9
 330
@@ -9121,9 +8971,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1312.6817917401759
  20
@@ -9131,19 +8981,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1312.6817917401759
- 21
-85.63155746453253
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3294
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9155,7 +8999,7 @@ AcDbEntity
   8
 0
  62
-72
+202
 100
 AcDbHatch
  10
@@ -9261,7 +9105,7 @@ AcDbPolyline
  20
 169.20300892973086
   0
-TEXT
+MTEXT
   5
 DC
 330
@@ -9271,9 +9115,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1458.0112589914022
  20
@@ -9281,19 +9125,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-1458.0112589914022
- 21
-169.34957858057354
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P East\P Index: 3295
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9305,7 +9143,7 @@ AcDbEntity
   8
 0
  62
-72
+202
 100
 AcDbHatch
  10
@@ -9411,7 +9249,7 @@ AcDbPolyline
  20
 253.64271788225886
   0
-TEXT
+MTEXT
   5
 DF
 330
@@ -9421,9 +9259,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1603.1353844413668
  20
@@ -9431,19 +9269,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1603.1353844413668
- 21
-253.37860393057863
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3296
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9455,7 +9287,7 @@ AcDbEntity
   8
 0
  62
-72
+202
 100
 AcDbHatch
  10
@@ -9553,7 +9385,7 @@ AcDbPolyline
  20
 253.28115664556512
   0
-TEXT
+MTEXT
   5
 E2
 330
@@ -9563,29 +9395,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1728.9013514680053
  20
-337.34498201708186
+337.3449820170819
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1728.9013514680053
- 21
-337.34498201708186
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3297
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9597,7 +9423,7 @@ AcDbEntity
   8
 0
  62
-72
+232
 100
 AcDbHatch
  10
@@ -9703,7 +9529,7 @@ AcDbPolyline
  20
 1.6293253809872765
   0
-TEXT
+MTEXT
   5
 E5
 330
@@ -9713,29 +9539,23 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1457.8853844413668
  20
-1.7982241311992164
+1.7982241311992146
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1457.8853844413668
- 21
-1.7982241311992164
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P West\P Index: 3298
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9747,7 +9567,7 @@ AcDbEntity
   8
 0
  62
-72
+232
 100
 AcDbHatch
  10
@@ -9853,7 +9673,7 @@ AcDbPolyline
  20
 85.20300892973087
   0
-TEXT
+MTEXT
   5
 E8
 330
@@ -9863,9 +9683,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1602.9261765579984
  20
@@ -9873,19 +9693,13 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-True
- 72
-1
- 11
-1602.9261765579984
- 21
-85.68291191390688
- 31
-0.0
-100
-AcDbText
+IsEngine: True\P East\P Index: 3299
+  7
+BoldStyle
   0
 HATCH
   5
@@ -9897,7 +9711,7 @@ AcDbEntity
   8
 0
  62
-72
+232
 100
 AcDbHatch
  10
@@ -10003,7 +9817,7 @@ AcDbPolyline
  20
 85.70747309682142
   0
-TEXT
+MTEXT
   5
 EB
 330
@@ -10013,9 +9827,9 @@ AcDbEntity
   8
 0
  62
-2
+0
 100
-AcDbText
+AcDbMText
  10
 1748.050302007963
  20
@@ -10023,21 +9837,15 @@ AcDbText
  30
 0.0
  40
-7.5
+10.0
+ 71
+5
   1
-False
- 72
-1
- 11
-1748.050302007963
- 21
-169.711937263912
- 31
-0.0
-100
-AcDbText
+IsEngine: False\P East\P Index: 3300
+  7
+BoldStyle
   0
-TEXT
+MTEXT
   5
 EC
 330
@@ -10049,29 +9857,21 @@ AcDbEntity
  62
 8
 100
-AcDbText
+AcDbMText
  10
-500.0
+450.0
  20
 700.0
  30
 0.0
  40
 65.0
+ 71
+5
   1
 Cassette_32_2
   7
 BoldStyle
- 72
-1
- 11
-500.0
- 21
-700.0
- 31
-0.0
-100
-AcDbText
   0
 ENDSEC
   0
@@ -11175,7 +10975,7 @@ DictionaryVariables
 280
 0
   1
-1.4.2 @ 2026-06-26T14:39:19.648494+00:00
+1.4.4 @ 2026-06-26T17:01:11.073268+00:00
   0
 VISUALSTYLE
   5
@@ -11887,7 +11687,7 @@ DictionaryVariables
 280
 0
   1
-1.4.2 @ 2026-06-26T14:39:19.719694+00:00
+1.4.4 @ 2026-06-26T17:01:11.194686+00:00
   0
 ENDSEC
   0

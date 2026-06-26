@@ -62,6 +62,18 @@ cass = df[col]
 print("Cassestte dataframe:")
 print(cass)
 
+#Classifying High Density and Scintillator modules
+isHD = []
+isScint = []
+train_id = cass['MB'].unique().tolist()
+for train in train_id:
+    train_df = cass[(cass.MB == train)]
+    if train_df.wagon.nunique() == 1:
+        if train < 40:
+            isHD.append(train)
+        else:
+            isScint.append(train)
+            
 ############Drawing the objects############
 print("Drawing modules...")
 
@@ -169,8 +181,12 @@ for index, row in cass.iterrows():
     
     center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
     center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
-    if row.MB < 8:
+    
+    #Determining the text for each module
+    if row.MB in isHD:
         wagon_text = "HD"
+    elif row.MB in isScint:
+        wagon_text = "Scintillator"
     elif row.wagon == 0:
         wagon_text = "East"
     else:
