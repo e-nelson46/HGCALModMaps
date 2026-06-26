@@ -48,7 +48,8 @@ df = df[(df.plane == layer)& (df.icassette == cassnum)]
 col = [
     'plane','u','v','itype','typecode',
     'x0','y0','irot','nvertices', 'vx_0','vy_0','vx_1','vy_1','vx_2','vy_2',
-    'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine','icassette'
+    'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine','icassette',
+    'MB', 'wagon'
 ]
 cass = df[col]
 print("Cassestte dataframe:")
@@ -96,7 +97,10 @@ for index, row in cass.iterrows():
 
         # Add the (x, y) pair to the list
         module_coords.append((x_rot,y_rot))
-
+    
+    #Draws a circle on the right edge of modules with engine
+    if row.isEngine == True:
+        draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 1)
     ########################
     #       Add color      #
     ########################
@@ -104,8 +108,8 @@ for index, row in cass.iterrows():
     hatch = msp.add_hatch()
 
     # 2. Set the ACI color directly on the hatch entity 
-    hatch.dxf.color = 72
-    hatch.set_solid_fill(color=72)
+    hatch.dxf.color = 98
+    hatch.set_solid_fill(color=98)
 
     # 3. Ensure coordinates are clean, native Python floats (tuples of x, y)
     clean_coords = [(float(x), float(y)) for x, y in module_coords]
@@ -127,19 +131,19 @@ for index, row in cass.iterrows():
     center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
     center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
 
-    module_text = row.isEngine #Text to be printed
+    module_text = f"IsEngine: {row.isEngine}\n MB: {row.MB}\n wagon: {row.wagon}" #Text to be printed
 
     #Printing of the text
-    msp.add_text(
+    msp.add_mtext(
     module_text, 
     dxfattribs={
         "color": 2,
-        "height": 7.5,  # Text height/size
-        }
-    ).set_placement(
-        (center_x, center_y),              # The alignment point (the middle)
-        align=ezdxf.enums.TextEntityAlignment.CENTER  # Centers it precisely horizontally and vertically
-    )
+        "char_height": 10,  # Use char_height for MTEXT instead of height
+    }
+).set_location(
+    insert=(center_x, center_y),                         # The coordinate point
+    attachment_point=5  # The MTEXT equivalent of CENTER
+)
 
 
     
