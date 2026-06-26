@@ -34,9 +34,11 @@ cassnum = int(input("Enter cassette number: "))
 
 
 ############Initial setup to open files and create ezdxf objects#############
-doc = ezdxf.new("R2000", True)
+doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
+style = doc.styles.add("BoldStyle", font="arial.ttf")
+style.dxf.width = 1.5
 
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
@@ -134,15 +136,25 @@ for index, row in cass.iterrows():
     module_text, 
     dxfattribs={
         "color": 2,
-        "height": 7.5,  # Text height/size
+        "height": 7.5,
         }
     ).set_placement(
         (center_x, center_y),              # The alignment point (the middle)
         align=ezdxf.enums.TextEntityAlignment.CENTER  # Centers it precisely horizontally and vertically
     )
 
-
-    
+cass_txt = "Cassette_"+str(layer)+"_"+str(cassnum)
+msp.add_text(
+cass_txt, 
+dxfattribs={
+    "color": 8,
+    "style": "BoldStyle",
+    "height": 65,  # Text height/size
+    }
+).set_placement(
+    (500, 700),              # The alignment point (the middle)
+    align=ezdxf.enums.TextEntityAlignment.CENTER  # Centers it precisely horizontally and vertically
+)
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
