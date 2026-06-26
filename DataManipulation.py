@@ -2,6 +2,8 @@ import ezdxf
 import pandas as pd
 import os
 import numpy as np
+import sys
+
 
 #############Defining functions to draw the shapes#############
 
@@ -29,9 +31,11 @@ def draw_solid_dot(msp, location, radius=1.0, color=1):
 
 
 ############Inputs for Cassette and Layer Number###############
-layer = int(input("Enter layer number: "))
-cassnum = int(input("Enter cassette number: "))
-
+#layer = int(input("Enter layer number: "))
+#cassnum = int(input("Enter cassette number: "))
+layer = int(sys.argv[1])
+cassnum = int(sys.argv[2])
+print(type(layer))
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
