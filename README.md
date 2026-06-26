@@ -3,7 +3,7 @@ A place to make code to create module maps for HGCAL cassettes
 More info to come...
 
 ## Syntax and Naming Conventions
-After copying the repository, you can make individual .dxf files using the synax
+After copying the repository, you can make individual .dxf files using the synax:  
 python3 DataManipulation.py 26 1,   
 where the first argument is the layer number 
 and the second is the cassette number.
