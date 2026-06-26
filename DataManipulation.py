@@ -115,28 +115,29 @@ for index, row in cass.iterrows():
         # Add the (x, y) pair to the list
         module_coords.append((x_rot,y_rot))
     
-    #Draws a circle on the right edge of modules with engine
-    #if row.isEngine == True:
-    #    draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 1)
     ########################
     #       Add color      #
     ########################
 
     #Setting color
     if train_num == 1:
-        color = 30
+        color = 32
     elif train_num == 2:
-        color = 40
+        color = 42
     elif train_num == 3:
-        color = 86
+        color = 82
     elif train_num == 4:
         color = 122
     elif train_num == 5:
         color = 152
     elif train_num == 6:
         color = 202
-    else:
+    elif train_num == 7:
         color = 232
+    elif train_num == 8:
+        color = 242
+    else:
+        color = 62
 
     # 1. Initialize the hatch
     hatch = msp.add_hatch()
@@ -158,6 +159,10 @@ for index, row in cass.iterrows():
     #for i in range (0,len(module_coords)):
     #    msp.add_line(module_coords[i],module_coords[i-1],dxfattribs= {"layer":"SHAPES"})
      
+    #Draws a circle on the right edge of modules with engine
+    #if row.isEngine == True:
+    #    draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 12)
+
     ########################
     #       Add text       #
     ########################
@@ -165,13 +170,14 @@ for index, row in cass.iterrows():
     center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
     center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
 
-    module_text = f"IsEngine: {row.isEngine}\n MB: {row.MB}\n wagon: {row.wagon}" #Text to be printed
+    module_text = f"IsEngine: {row.isEngine}\n wagon: {row.wagon}\n Index: {index}" #Text to be printed
 
     #Printing of the text
     msp.add_mtext(  #mtext allows for multi-line text to be printed
     module_text, 
     dxfattribs={
         "color": 0,
+        "style": "BoldStyle",
         "char_height": 10,  # Use char_height for MTEXT instead of height
     }
 ).set_location(
