@@ -169,8 +169,14 @@ for index, row in cass.iterrows():
     
     center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
     center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
-
-    module_text = f"IsEngine: {row.isEngine}\n wagon: {row.wagon}\n Index: {index}" #Text to be printed
+    if row.MB < 8:
+        wagon_text = "HD"
+    elif row.wagon == 0:
+        wagon_text = "East"
+    else:
+        wagon_text = "West"
+    
+    module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n Index: {index}" #Text to be printed
 
     #Printing of the text
     msp.add_mtext(  #mtext allows for multi-line text to be printed
