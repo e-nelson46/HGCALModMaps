@@ -10,8 +10,7 @@ and the second is the cassette number (1-4).
 This will save a .dxf file in the folder TestDXFfiles with the naming convention  
 Cassette_'layer number'_'cassette number'
 
-To run through mulitple layers and their cassettes, use the bash  
-script shown below:  
+To run through mulitple layers and their cassettes, use the bash script shown below:  
 
 ```
 for i in {26..47}; do
