@@ -83,7 +83,7 @@ print("Drawing modules...")
 ###################################################
 
 train_num = 0
-MB_num  = 0
+MB_num  = -1
 module_num = 0
 # .iterrows() lets you step through the DataFrame one row at a time
 for index, row in cass.iterrows():

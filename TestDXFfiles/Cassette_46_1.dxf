@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461218.551053241
+2461218.608634259
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461218.551053241
+2461218.6086458336
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{95670B11-45FB-48ED-9B77-276DDC744BF5}
+{10DAAF2C-CEC3-44A0-8905-ED6CB3A85B77}
   9
 $VERSIONGUID
   2
-{58B9C403-B795-4331-83E9-DDD7F5580D6F}
+{4B7DAAB7-A1E5-40AB-91BB-0AFFB74B6544}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -5393,7 +5393,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4793
+IsEngine: False\P East\P Index: 4793
   7
 BoldStyle
   0
@@ -5537,7 +5537,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P Index: 4794
+IsEngine: True\P East\P Index: 4794
   7
 BoldStyle
   0
@@ -5681,7 +5681,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4795
+IsEngine: False\P West\P Index: 4795
   7
 BoldStyle
   0
@@ -5825,7 +5825,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4796
+IsEngine: False\P East\P Index: 4796
   7
 BoldStyle
   0
@@ -5953,7 +5953,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4797
+IsEngine: False\P West\P Index: 4797
   7
 BoldStyle
   0
@@ -6089,7 +6089,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4798
+IsEngine: False\P West\P Index: 4798
   7
 BoldStyle
   0
@@ -6233,7 +6233,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4799
+IsEngine: False\P East\P Index: 4799
   7
 BoldStyle
   0
@@ -6377,7 +6377,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P Index: 4800
+IsEngine: True\P East\P Index: 4800
   7
 BoldStyle
   0
@@ -6521,7 +6521,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 4801
+IsEngine: False\P West\P Index: 4801
   7
 BoldStyle
   0
@@ -6649,7 +6649,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4806
+IsEngine: False\P Scintillator\P Index: 4806
   7
 BoldStyle
   0
@@ -6777,7 +6777,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4807
+IsEngine: False\P Scintillator\P Index: 4807
   7
 BoldStyle
   0
@@ -6905,7 +6905,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4808
+IsEngine: False\P Scintillator\P Index: 4808
   7
 BoldStyle
   0
@@ -7033,7 +7033,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4809
+IsEngine: False\P Scintillator\P Index: 4809
   7
 BoldStyle
   0
@@ -7161,7 +7161,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 4810
+IsEngine: True\P Scintillator\P Index: 4810
   7
 BoldStyle
   0
@@ -7289,7 +7289,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4811
+IsEngine: False\P Scintillator\P Index: 4811
   7
 BoldStyle
   0
@@ -7417,7 +7417,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4812
+IsEngine: False\P Scintillator\P Index: 4812
   7
 BoldStyle
   0
@@ -7545,7 +7545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4813
+IsEngine: False\P Scintillator\P Index: 4813
   7
 BoldStyle
   0
@@ -7673,7 +7673,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4814
+IsEngine: False\P Scintillator\P Index: 4814
   7
 BoldStyle
   0
@@ -7801,7 +7801,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 4815
+IsEngine: True\P Scintillator\P Index: 4815
   7
 BoldStyle
   0
@@ -7929,7 +7929,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4816
+IsEngine: False\P Scintillator\P Index: 4816
   7
 BoldStyle
   0
@@ -8057,7 +8057,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4817
+IsEngine: False\P Scintillator\P Index: 4817
   7
 BoldStyle
   0
@@ -8185,7 +8185,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4818
+IsEngine: False\P Scintillator\P Index: 4818
   7
 BoldStyle
   0
@@ -8313,7 +8313,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 4819
+IsEngine: False\P Scintillator\P Index: 4819
   7
 BoldStyle
   0
@@ -8441,7 +8441,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 4820
+IsEngine: True\P Scintillator\P Index: 4820
   7
 BoldStyle
   0
@@ -9575,7 +9575,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-26T18:13:31.725593+00:00
+1.4.4 @ 2026-06-26T19:36:26.988520+00:00
   0
 VISUALSTYLE
   5
@@ -10287,7 +10287,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-26T18:13:31.870733+00:00
+1.4.4 @ 2026-06-26T19:36:27.155954+00:00
   0
 ENDSEC
   0
