@@ -111,8 +111,8 @@ for index, row in cass.iterrows():
         module_coords.append((x_rot,y_rot))
     
     #Draws a circle on the right edge of modules with engine
-    if row.isEngine == True:
-        draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 1)
+    #if row.isEngine == True:
+    #    draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 1)
     ########################
     #       Add color      #
     ########################
@@ -166,7 +166,7 @@ for index, row in cass.iterrows():
     msp.add_mtext(  #mtext allows for multi-line text to be printed
     module_text, 
     dxfattribs={
-        "color": 2,
+        "color": 0,
         "char_height": 10,  # Use char_height for MTEXT instead of height
     }
 ).set_location(
