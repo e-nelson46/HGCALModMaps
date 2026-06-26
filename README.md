@@ -4,9 +4,9 @@ More info to come...
 
 ## Syntax and Naming Conventions
 After copying the repository, you can make individual .dxf files using the synax:  
-python3 DataManipulation.py 26 1,   
-where the first argument is the layer number 
-and the second is the cassette number.
+python3 DataManipulation.py 26 1  
+Where the first argument is the layer number (26-47) 
+and the second is the cassette number (1-4).
 This will save a .dxf file in the folder TestDXFfiles with the naming convention  
 Cassette_'layer number'_'cassette number'
 
