@@ -37,8 +37,8 @@ cassnum = int(input("Enter cassette number: "))
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
-style = doc.styles.add("BoldStyle", font="arial.ttf")
-style.dxf.width = 1.5
+
+
 
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
 df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
@@ -64,10 +64,20 @@ print("Drawing modules...")
 ###################################################
 #           Draw modules one by one               #
 ###################################################
-  
+
+train_num = 0
+MB_num  = 0
+module_num = 0
 # .iterrows() lets you step through the DataFrame one row at a time
 for index, row in cass.iterrows():
     
+    #Checking for train and location in train
+    if row.MB > MB_num:
+        train_num += 1
+        MB_num = row.MB
+        module_num = 0
+    else:
+        module_num += 1
     # Check how many vertices this specific module has
     num_vertices = int(row['nvertices']) 
     
@@ -106,12 +116,29 @@ for index, row in cass.iterrows():
     ########################
     #       Add color      #
     ########################
+
+    #Setting color
+    if train_num == 1:
+        color = 30
+    elif train_num == 2:
+        color = 40
+    elif train_num == 3:
+        color = 86
+    elif train_num == 4:
+        color = 122
+    elif train_num == 5:
+        color = 152
+    elif train_num == 6:
+        color = 202
+    else:
+        color = 232
+
     # 1. Initialize the hatch
     hatch = msp.add_hatch()
 
     # 2. Set the ACI color directly on the hatch entity 
-    hatch.dxf.color = 98
-    hatch.set_solid_fill(color=98)
+    hatch.dxf.color = color
+    hatch.set_solid_fill(color=color)
 
     # 3. Ensure coordinates are clean, native Python floats (tuples of x, y)
     clean_coords = [(float(x), float(y)) for x, y in module_coords]
@@ -136,7 +163,7 @@ for index, row in cass.iterrows():
     module_text = f"IsEngine: {row.isEngine}\n MB: {row.MB}\n wagon: {row.wagon}" #Text to be printed
 
     #Printing of the text
-    msp.add_mtext(
+    msp.add_mtext(  #mtext allows for multi-line text to be printed
     module_text, 
     dxfattribs={
         "color": 2,
@@ -147,20 +174,20 @@ for index, row in cass.iterrows():
     attachment_point=5  # The MTEXT equivalent of CENTER
 )
 
-###############Label###############
 
-cass_txt = "Cassette_"+str(layer)+"_"+str(cassnum)
-msp.add_text(
-cass_txt, 
-dxfattribs={
-    "color": 8,
-    "style": "BoldStyle",
-    "height": 65,  # Text height/size
-    }
-).set_placement(
-    (500, 700),              # The alignment point (the middle)
-    align=ezdxf.enums.TextEntityAlignment.CENTER  # Centers it precisely horizontally and vertically
-)
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
