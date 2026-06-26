@@ -41,7 +41,8 @@ print(type(layer))
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
-
+style = doc.styles.add("BoldStyle", font="arial.ttf")
+style.dxf.width = 1.5 
 
 
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
@@ -179,19 +180,19 @@ for index, row in cass.iterrows():
 )
 
 
+casstxt = "Cassette_"+str(layer)+"_"+str(cassnum)
+msp.add_mtext(  #mtext allows for multi-line text to be printed
+casstxt, 
+dxfattribs={
+    "color": 8,
+    "style": "BoldStyle",
+    "char_height": 65,  # Use char_height for MTEXT instead of height
+    }
+).set_location(
+    insert=(450, 700),                         # The coordinate point
+    attachment_point=5  # The MTEXT equivalent of CENTER
+)
     
-
-
-
-
-
-
-
-
-
-
-
-
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
