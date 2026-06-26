@@ -2,6 +2,8 @@ import ezdxf
 import pandas as pd
 import os
 import numpy as np
+import sys
+
 
 #############Defining functions to draw the shapes#############
 
@@ -29,15 +31,18 @@ def draw_solid_dot(msp, location, radius=1.0, color=1):
 
 
 ############Inputs for Cassette and Layer Number###############
-layer = int(input("Enter layer number: "))
-cassnum = int(input("Enter cassette number: "))
-
+#layer = int(input("Enter layer number: "))
+#cassnum = int(input("Enter cassette number: "))
+layer = int(sys.argv[1])
+cassnum = int(sys.argv[2])
+print(type(layer))
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 shapes_layer = doc.layers.new("SHAPES")
-
+style = doc.styles.add("BoldStyle", font="arial.ttf")
+style.dxf.width = 1.5 
 
 
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
@@ -175,19 +180,19 @@ for index, row in cass.iterrows():
 )
 
 
+casstxt = "Cassette_"+str(layer)+"_"+str(cassnum)
+msp.add_mtext(  #mtext allows for multi-line text to be printed
+casstxt, 
+dxfattribs={
+    "color": 8,
+    "style": "BoldStyle",
+    "char_height": 65,  # Use char_height for MTEXT instead of height
+    }
+).set_location(
+    insert=(450, 700),                         # The coordinate point
+    attachment_point=5  # The MTEXT equivalent of CENTER
+)
     
-
-
-
-
-
-
-
-
-
-
-
-
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
