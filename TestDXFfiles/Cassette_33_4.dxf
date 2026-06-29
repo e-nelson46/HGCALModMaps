@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461221.410416667
+2461221.622025463
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461221.410416667
+2461221.622025463
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{9AE2717E-1A80-4AAD-A2B6-4E7963FA9654}
+{DAEFF65B-7AA6-42E1-8F07-E3158B1D1C45}
   9
 $VERSIONGUID
   2
-{D4110872-FFB9-4E2D-B2CE-BA066AE55CA8}
+{8A149520-4BF0-4521-ACAD-45514D2E43AA}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -5401,7 +5401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (2, 4)
+IsEngine: False\P HD1_M1\P (u, v): (3.4641016151377544, -4.440892098500626e-16)
   7
 BoldStyle
   0
@@ -5545,7 +5545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P (u, v): (2, 5)
+IsEngine: True\P HD1_M2\P (u, v): (4.618802153517006, 0.5773502691896253)
   7
 BoldStyle
   0
@@ -5689,7 +5689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (1, 3)
+IsEngine: False\P HD2_M1\P (u, v): (2.886751345948128, 0.5773502691896253)
   7
 BoldStyle
   0
@@ -5833,7 +5833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (1, 4)
+IsEngine: False\P HD2_M2\P (u, v): (4.04145188432738, 1.154700538379251)
   7
 BoldStyle
   0
@@ -5977,7 +5977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P (u, v): (1, 5)
+IsEngine: True\P HD2_M3\P (u, v): (5.196152422706631, 1.7320508075688767)
   7
 BoldStyle
   0
@@ -6121,7 +6121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (2, 6)
+IsEngine: False\P LD1_W1\P (u, v): (5.773502691896256, 1.1547005383792506)
   7
 BoldStyle
   0
@@ -6265,7 +6265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (2, 7)
+IsEngine: False\P LD1_W2\P (u, v): (6.928203230275509, 1.7320508075688767)
   7
 BoldStyle
   0
@@ -6409,7 +6409,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (2, 8)
+IsEngine: False\P LD1_W3\P (u, v): (8.08290376865476, 2.309401076758502)
   7
 BoldStyle
   0
@@ -6553,7 +6553,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (2, 9)
+IsEngine: False\P LD1_W4\P (u, v): (9.23760430703401, 2.8867513459481273)
   7
 BoldStyle
   0
@@ -6697,7 +6697,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (2, 10)
+IsEngine: True\P LD1_E1\P (u, v): (10.392304845413262, 3.4641016151377535)
   7
 BoldStyle
   0
@@ -6841,7 +6841,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (2, 11)
+IsEngine: False\P LD1_E2\P (u, v): (11.547005383792513, 4.041451884327379)
   7
 BoldStyle
   0
@@ -6969,7 +6969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (2, 12)
+IsEngine: False\P LD1_E3\P (u, v): (12.701705922171763, 4.618802153517004)
   7
 BoldStyle
   0
@@ -7113,7 +7113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (1, 6)
+IsEngine: False\P LD2_W1\P (u, v): (6.350852961085882, 2.309401076758502)
   7
 BoldStyle
   0
@@ -7257,7 +7257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (1, 7)
+IsEngine: False\P LD2_W2\P (u, v): (7.505553499465134, 2.886751345948128)
   7
 BoldStyle
   0
@@ -7401,7 +7401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (1, 8)
+IsEngine: False\P LD2_W3\P (u, v): (8.660254037844384, 3.4641016151377535)
   7
 BoldStyle
   0
@@ -7545,7 +7545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (1, 9)
+IsEngine: True\P LD2_E1\P (u, v): (9.814954576223634, 4.041451884327379)
   7
 BoldStyle
   0
@@ -7689,7 +7689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (1, 10)
+IsEngine: False\P LD2_E2\P (u, v): (10.969655114602887, 4.618802153517005)
   7
 BoldStyle
   0
@@ -7833,7 +7833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (1, 11)
+IsEngine: False\P LD2_E3\P (u, v): (12.124355652982137, 5.19615242270663)
   7
 BoldStyle
   0
@@ -7977,7 +7977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (5, 10)
+IsEngine: False\P LD3_W1\P (u, v): (8.660254037844386, -8.881784197001252e-16)
   7
 BoldStyle
   0
@@ -8121,7 +8121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (5, 11)
+IsEngine: False\P LD3_W2\P (u, v): (9.814954576223636, 0.5773502691896244)
   7
 BoldStyle
   0
@@ -8265,7 +8265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (5, 12)
+IsEngine: True\P LD3_E1\P (u, v): (10.969655114602887, 1.1547005383792497)
   7
 BoldStyle
   0
@@ -8401,7 +8401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (5, 13)
+IsEngine: False\P LD3_E2\P (u, v): (12.124355652982139, 1.7320508075688759)
   7
 BoldStyle
   0
@@ -8537,7 +8537,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (6, 12)
+IsEngine: False\P LD3_W3\P (u, v): (10.392304845413262, -1.7763568394002505e-15)
   7
 BoldStyle
   0
@@ -8681,7 +8681,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (4, 8)
+IsEngine: False\P LD4_W1\P (u, v): (6.928203230275509, -8.881784197001252e-16)
   7
 BoldStyle
   0
@@ -8825,7 +8825,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (4, 9)
+IsEngine: False\P LD4_W2\P (u, v): (8.08290376865476, 0.5773502691896244)
   7
 BoldStyle
   0
@@ -8969,7 +8969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (4, 10)
+IsEngine: True\P LD4_E1\P (u, v): (9.237604307034012, 1.1547005383792506)
   7
 BoldStyle
   0
@@ -9113,7 +9113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (4, 11)
+IsEngine: False\P LD4_E2\P (u, v): (10.392304845413262, 1.7320508075688759)
   7
 BoldStyle
   0
@@ -9257,7 +9257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (4, 12)
+IsEngine: False\P LD4_E3\P (u, v): (11.547005383792513, 2.309401076758501)
   7
 BoldStyle
   0
@@ -9401,7 +9401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (3, 6)
+IsEngine: False\P LD5_W1\P (u, v): (5.196152422706631, -8.881784197001252e-16)
   7
 BoldStyle
   0
@@ -9545,7 +9545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (3, 7)
+IsEngine: False\P LD5_W2\P (u, v): (6.3508529610858835, 0.5773502691896253)
   7
 BoldStyle
   0
@@ -9689,7 +9689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (3, 8)
+IsEngine: False\P LD5_W3\P (u, v): (7.505553499465134, 1.1547005383792506)
   7
 BoldStyle
   0
@@ -9833,7 +9833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (3, 9)
+IsEngine: False\P LD5_W4\P (u, v): (8.660254037844384, 1.7320508075688759)
   7
 BoldStyle
   0
@@ -9977,7 +9977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (3, 10)
+IsEngine: True\P LD5_E1\P (u, v): (9.814954576223636, 2.309401076758502)
   7
 BoldStyle
   0
@@ -10121,7 +10121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (3, 11)
+IsEngine: False\P LD5_E2\P (u, v): (10.969655114602887, 2.8867513459481273)
   7
 BoldStyle
   0
@@ -10265,7 +10265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (3, 12)
+IsEngine: False\P LD5_E3\P (u, v): (12.124355652982137, 3.4641016151377526)
   7
 BoldStyle
   0
@@ -11399,7 +11399,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-29T14:51:00.135626+00:00
+1.4.4 @ 2026-06-29T19:55:43.019892+00:00
   0
 VISUALSTYLE
   5
@@ -12111,7 +12111,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-29T14:51:00.308536+00:00
+1.4.4 @ 2026-06-29T19:55:43.206615+00:00
   0
 ENDSEC
   0

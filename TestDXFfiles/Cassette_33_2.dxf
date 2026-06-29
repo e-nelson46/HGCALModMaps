@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461221.4103472224
+2461221.6582291666
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461221.4103587964
+2461221.6582291666
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{E14D8D79-CA88-4DB0-BB29-73545C81691C}
+{54A38AA1-D4ED-4077-8792-926F8573B458}
   9
 $VERSIONGUID
   2
-{F8E07096-FB6B-4F18-B100-44532F220274}
+{405C8E4F-9149-4655-A76C-5A8D7931A9E7}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -5401,7 +5401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (4, 2)
+IsEngine: False\P HD1_M1\P (u, v): (4, 2)
   7
 BoldStyle
   0
@@ -5545,7 +5545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P (u, v): (5, 3)
+IsEngine: True\P HD1_M2\P (u, v): (5, 3)
   7
 BoldStyle
   0
@@ -5689,7 +5689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (3, 2)
+IsEngine: False\P HD2_M1\P (u, v): (3, 2)
   7
 BoldStyle
   0
@@ -5833,7 +5833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P (u, v): (4, 3)
+IsEngine: False\P HD2_M2\P (u, v): (4, 3)
   7
 BoldStyle
   0
@@ -5977,7 +5977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P (u, v): (5, 4)
+IsEngine: True\P HD2_M3\P (u, v): (5, 4)
   7
 BoldStyle
   0
@@ -6121,7 +6121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (6, 4)
+IsEngine: False\P LD1_E1\P (u, v): (6, 4)
   7
 BoldStyle
   0
@@ -6265,7 +6265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (7, 5)
+IsEngine: False\P LD1_E2\P (u, v): (7, 5)
   7
 BoldStyle
   0
@@ -6409,7 +6409,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (8, 6)
+IsEngine: False\P LD1_E3\P (u, v): (8, 6)
   7
 BoldStyle
   0
@@ -6553,7 +6553,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (9, 7)
+IsEngine: False\P LD1_E4\P (u, v): (9, 7)
   7
 BoldStyle
   0
@@ -6697,7 +6697,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (10, 8)
+IsEngine: True\P LD1_W1\P (u, v): (10, 8)
   7
 BoldStyle
   0
@@ -6841,7 +6841,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (11, 9)
+IsEngine: False\P LD1_W2\P (u, v): (11, 9)
   7
 BoldStyle
   0
@@ -6969,7 +6969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (12, 10)
+IsEngine: False\P LD1_W3\P (u, v): (12, 10)
   7
 BoldStyle
   0
@@ -7113,7 +7113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (6, 5)
+IsEngine: False\P LD2_E1\P (u, v): (6, 5)
   7
 BoldStyle
   0
@@ -7257,7 +7257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (7, 6)
+IsEngine: False\P LD2_E2\P (u, v): (7, 6)
   7
 BoldStyle
   0
@@ -7401,7 +7401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (8, 7)
+IsEngine: False\P LD2_E3\P (u, v): (8, 7)
   7
 BoldStyle
   0
@@ -7545,7 +7545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (9, 8)
+IsEngine: True\P LD2_W1\P (u, v): (9, 8)
   7
 BoldStyle
   0
@@ -7689,7 +7689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (10, 9)
+IsEngine: False\P LD2_W2\P (u, v): (10, 9)
   7
 BoldStyle
   0
@@ -7833,7 +7833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (11, 10)
+IsEngine: False\P LD2_W3\P (u, v): (11, 10)
   7
 BoldStyle
   0
@@ -7977,7 +7977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (10, 5)
+IsEngine: False\P LD3_E1\P (u, v): (10, 5)
   7
 BoldStyle
   0
@@ -8121,7 +8121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (11, 6)
+IsEngine: False\P LD3_E2\P (u, v): (11, 6)
   7
 BoldStyle
   0
@@ -8257,7 +8257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (12, 6)
+IsEngine: False\P LD3_E3\P (u, v): (12, 6)
   7
 BoldStyle
   0
@@ -8401,7 +8401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (12, 7)
+IsEngine: True\P LD3_W1\P (u, v): (12, 7)
   7
 BoldStyle
   0
@@ -8537,7 +8537,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (13, 8)
+IsEngine: False\P LD3_W2\P (u, v): (13, 8)
   7
 BoldStyle
   0
@@ -8681,7 +8681,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (8, 4)
+IsEngine: False\P LD4_E1\P (u, v): (8, 4)
   7
 BoldStyle
   0
@@ -8825,7 +8825,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (9, 5)
+IsEngine: False\P LD4_E2\P (u, v): (9, 5)
   7
 BoldStyle
   0
@@ -8969,7 +8969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (10, 6)
+IsEngine: True\P LD4_W1\P (u, v): (10, 6)
   7
 BoldStyle
   0
@@ -9113,7 +9113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (11, 7)
+IsEngine: False\P LD4_W2\P (u, v): (11, 7)
   7
 BoldStyle
   0
@@ -9257,7 +9257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (12, 8)
+IsEngine: False\P LD4_W3\P (u, v): (12, 8)
   7
 BoldStyle
   0
@@ -9401,7 +9401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (6, 3)
+IsEngine: False\P LD5_E1\P (u, v): (6, 3)
   7
 BoldStyle
   0
@@ -9545,7 +9545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (7, 4)
+IsEngine: False\P LD5_E2\P (u, v): (7, 4)
   7
 BoldStyle
   0
@@ -9689,7 +9689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (8, 5)
+IsEngine: False\P LD5_E3\P (u, v): (8, 5)
   7
 BoldStyle
   0
@@ -9833,7 +9833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P (u, v): (9, 6)
+IsEngine: False\P LD5_E4\P (u, v): (9, 6)
   7
 BoldStyle
   0
@@ -9977,7 +9977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P (u, v): (10, 7)
+IsEngine: True\P LD5_W1\P (u, v): (10, 7)
   7
 BoldStyle
   0
@@ -10121,7 +10121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (11, 8)
+IsEngine: False\P LD5_W2\P (u, v): (11, 8)
   7
 BoldStyle
   0
@@ -10265,7 +10265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P (u, v): (12, 9)
+IsEngine: False\P LD5_W3\P (u, v): (12, 9)
   7
 BoldStyle
   0
@@ -11399,7 +11399,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-29T14:50:54.917661+00:00
+1.4.4 @ 2026-06-29T20:47:51.532548+00:00
   0
 VISUALSTYLE
   5
@@ -12111,7 +12111,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-29T14:50:55.093196+00:00
+1.4.4 @ 2026-06-29T20:47:51.714235+00:00
   0
 ENDSEC
   0
