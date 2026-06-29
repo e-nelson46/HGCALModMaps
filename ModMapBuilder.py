@@ -84,7 +84,12 @@ print("Drawing modules...")
 
 train_num = 0
 MB_num  = -1
-module_num = 0
+East_num = 1
+West_num = 1
+LD_train_num = 0
+HD_num = 1
+HD_train_num = 0
+
 # .iterrows() lets you step through the DataFrame one row at a time
 for index, row in cass.iterrows():
     
@@ -92,9 +97,14 @@ for index, row in cass.iterrows():
     if row.MB > MB_num:
         train_num += 1
         MB_num = row.MB
-        module_num = 0
-    else:
-        module_num += 1
+        if row.MB in isHD:
+            HD_num = 1  #Reseting HD number printed
+            HD_train_num += 1
+        else:
+            East_num = 1  #Reseting East number printed
+            West_num = 1  #Reseting West number printed
+            LD_train_num += 1
+
     # Check how many vertices this specific module has
     num_vertices = int(row['nvertices']) 
     
@@ -173,7 +183,10 @@ for index, row in cass.iterrows():
      
     #Draws a circle on the right edge of modules with engine
     #if row.isEngine == True:
-    #    draw_solid_dot(msp, (module_coords[2][0],module_coords[2][1]+10), 10, 12)
+    #    if row.MB in isHD:
+    #        draw_solid_dot(msp, (module_coords[3][0],module_coords[3][1]), 10, 12)
+    #    else:
+    #        draw_solid_dot(msp, (module_coords[5][0],module_coords[5][1]), 10, 12)
 
     ########################
     #       Add text       #
@@ -184,14 +197,17 @@ for index, row in cass.iterrows():
     
     #Determining the text for each module
     if row.MB in isHD:
-        wagon_text = "HD"
+        wagon_text = "HD" + str(HD_train_num) + "_M" + str(HD_num)
+        HD_num += 1
     elif row.MB in isScint:
         wagon_text = "Scintillator"
     elif row.wagon == 0:
-        wagon_text = "East"
+        wagon_text = "LD" + str(LD_train_num) + "_E" + str(East_num)
+        East_num += 1
     else:
-        wagon_text = "West"
-    
+        wagon_text = "LD" + str(LD_train_num) + "_W" + str(West_num)
+        West_num += 1
+
     module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
 
     #Printing of the text
