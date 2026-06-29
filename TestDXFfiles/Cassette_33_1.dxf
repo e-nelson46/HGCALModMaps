@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461218.6054282407
+2461221.4105092594
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461218.6054282407
+2461221.4105092594
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{0FF67438-43C3-4691-996D-1599A9BAF31A}
+{E6AF8658-0A1F-42D7-8669-737206917F61}
   9
 $VERSIONGUID
   2
-{F66CC2FF-2CB3-4740-BE55-5D6B4404E23B}
+{5C94168E-2046-4F6F-BD8F-F4D774B085A7}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -5385,7 +5385,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 3304
+IsEngine: False\P HD\P (u, v): (2, 0)
   7
 BoldStyle
   0
@@ -5529,7 +5529,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 3305
+IsEngine: False\P HD\P (u, v): (3, 0)
   7
 BoldStyle
   0
@@ -5673,7 +5673,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 3306
+IsEngine: False\P HD\P (u, v): (3, 1)
   7
 BoldStyle
   0
@@ -5817,7 +5817,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P Index: 3307
+IsEngine: True\P HD\P (u, v): (4, 0)
   7
 BoldStyle
   0
@@ -5961,7 +5961,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 3312
+IsEngine: False\P HD\P (u, v): (4, 1)
   7
 BoldStyle
   0
@@ -6105,7 +6105,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P HD\P Index: 3313
+IsEngine: True\P HD\P (u, v): (5, 1)
   7
 BoldStyle
   0
@@ -6249,7 +6249,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P HD\P Index: 3314
+IsEngine: False\P HD\P (u, v): (5, 2)
   7
 BoldStyle
   0
@@ -6393,7 +6393,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3328
+IsEngine: False\P East\P (u, v): (5, 0)
   7
 BoldStyle
   0
@@ -6537,7 +6537,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 3329
+IsEngine: True\P East\P (u, v): (6, 0)
   7
 BoldStyle
   0
@@ -6681,7 +6681,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3330
+IsEngine: False\P West\P (u, v): (7, 0)
   7
 BoldStyle
   0
@@ -6825,7 +6825,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3331
+IsEngine: False\P West\P (u, v): (8, 0)
   7
 BoldStyle
   0
@@ -6969,7 +6969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3332
+IsEngine: False\P West\P (u, v): (9, 0)
   7
 BoldStyle
   0
@@ -7113,7 +7113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3338
+IsEngine: False\P East\P (u, v): (6, 1)
   7
 BoldStyle
   0
@@ -7257,7 +7257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3339
+IsEngine: False\P East\P (u, v): (7, 1)
   7
 BoldStyle
   0
@@ -7401,7 +7401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 3340
+IsEngine: True\P East\P (u, v): (8, 1)
   7
 BoldStyle
   0
@@ -7545,7 +7545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3341
+IsEngine: False\P West\P (u, v): (9, 1)
   7
 BoldStyle
   0
@@ -7689,7 +7689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3342
+IsEngine: False\P West\P (u, v): (10, 1)
   7
 BoldStyle
   0
@@ -7833,7 +7833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3343
+IsEngine: False\P West\P (u, v): (11, 1)
   7
 BoldStyle
   0
@@ -7977,7 +7977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3350
+IsEngine: False\P East\P (u, v): (6, 2)
   7
 BoldStyle
   0
@@ -8121,7 +8121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3351
+IsEngine: False\P East\P (u, v): (7, 2)
   7
 BoldStyle
   0
@@ -8265,7 +8265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 3352
+IsEngine: True\P East\P (u, v): (8, 2)
   7
 BoldStyle
   0
@@ -8409,7 +8409,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3353
+IsEngine: False\P West\P (u, v): (9, 2)
   7
 BoldStyle
   0
@@ -8553,7 +8553,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3354
+IsEngine: False\P West\P (u, v): (10, 2)
   7
 BoldStyle
   0
@@ -8697,7 +8697,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3355
+IsEngine: False\P West\P (u, v): (11, 2)
   7
 BoldStyle
   0
@@ -8825,7 +8825,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3356
+IsEngine: False\P West\P (u, v): (12, 2)
   7
 BoldStyle
   0
@@ -8969,7 +8969,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3390
+IsEngine: False\P East\P (u, v): (7, 3)
   7
 BoldStyle
   0
@@ -9113,7 +9113,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3391
+IsEngine: False\P East\P (u, v): (8, 3)
   7
 BoldStyle
   0
@@ -9257,7 +9257,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 3392
+IsEngine: True\P East\P (u, v): (9, 3)
   7
 BoldStyle
   0
@@ -9401,7 +9401,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3393
+IsEngine: False\P West\P (u, v): (10, 3)
   7
 BoldStyle
   0
@@ -9545,7 +9545,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3394
+IsEngine: False\P West\P (u, v): (11, 3)
   7
 BoldStyle
   0
@@ -9689,7 +9689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3395
+IsEngine: False\P West\P (u, v): (12, 3)
   7
 BoldStyle
   0
@@ -9833,7 +9833,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3402
+IsEngine: False\P East\P (u, v): (9, 4)
   7
 BoldStyle
   0
@@ -9977,7 +9977,7 @@ AcDbMText
  71
 5
   1
-IsEngine: True\P East\P Index: 3403
+IsEngine: True\P East\P (u, v): (10, 4)
   7
 BoldStyle
   0
@@ -10121,7 +10121,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3404
+IsEngine: False\P West\P (u, v): (11, 4)
   7
 BoldStyle
   0
@@ -10265,7 +10265,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P East\P Index: 3405
+IsEngine: False\P East\P (u, v): (11, 5)
   7
 BoldStyle
   0
@@ -10409,7 +10409,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3406
+IsEngine: False\P West\P (u, v): (12, 4)
   7
 BoldStyle
   0
@@ -10553,7 +10553,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3407
+IsEngine: False\P West\P (u, v): (12, 5)
   7
 BoldStyle
   0
@@ -10689,7 +10689,7 @@ AcDbMText
  71
 5
   1
-IsEngine: False\P West\P Index: 3408
+IsEngine: False\P West\P (u, v): (13, 5)
   7
 BoldStyle
   0
@@ -11823,7 +11823,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-26T19:31:49.770659+00:00
+1.4.4 @ 2026-06-29T14:51:08.644649+00:00
   0
 VISUALSTYLE
   5
@@ -12535,7 +12535,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-06-26T19:31:49.971496+00:00
+1.4.4 @ 2026-06-29T14:51:08.838732+00:00
   0
 ENDSEC
   0

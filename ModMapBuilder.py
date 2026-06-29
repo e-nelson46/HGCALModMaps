@@ -192,7 +192,7 @@ for index, row in cass.iterrows():
     else:
         wagon_text = "West"
     
-    module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n Index: {index}" #Text to be printed
+    module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
 
     #Printing of the text
     msp.add_mtext(  #mtext allows for multi-line text to be printed
