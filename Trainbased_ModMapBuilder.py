@@ -1,3 +1,7 @@
+# Most current builder
+# Builds the map train by train to achieve correct labeling
+# To use run: python ./Trainbased_ModMapBuilder "Layer number" "Cassette number"
+
 import ezdxf
 import pandas as pd
 import os
@@ -97,7 +101,7 @@ df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
 # Wrapped both conditions in parentheses inside the main brackets
 df = df[(df.plane == layer)& (df.icassette == cassnum)]
 
-#Define important columns
+#Define important columns and building cassette dataframe
 col = [
     'plane','u','v','itype','typecode',
     'x0','y0','irot','nvertices', 'vx_0','vy_0','vx_1','vy_1','vx_2','vy_2',
@@ -106,11 +110,12 @@ col = [
 ]
 cass_df = df[col]
 
-#Classifying High Density and Scintillator modules
+
 isHD = []  #List of MB values for HD trains
 isScint = []  #List of MB values for Scintillators
 train_id = cass_df['MB'].unique().tolist() #List of unique MB values
-#Defining variables used for coloring and other fun things
+
+#Defining variables used for coloring and labeling
 train_num = 0
 LD_train_num = 0
 HD_train_num = 0
@@ -136,7 +141,7 @@ for train in train_id:
         LD_train_num += 1
         
 
-    if train in isHD: #If train is high density, only loop through wagon = 0
+    if train in isHD: #If train is high density, only loop through wagon = 0 when drawing dataframe
         wagon_loop = 1
     else:
         wagon_loop = 2
@@ -144,6 +149,7 @@ for train in train_id:
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
     engine_center = find_module_vertices(engine_df.squeeze())[1]
 
+    #Getting data for additional colmuns containing the module center and distance from engine
     Mod_Dist_Data = []
     Mod_Center_data = []
     for index, row in train_df.iterrows():
@@ -152,7 +158,7 @@ for train in train_id:
         distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
         Mod_Dist_Data.append(distance)
     
-    #Adding new columns for distance from engine and module center
+    #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
     train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
 
@@ -187,6 +193,7 @@ for train in train_id:
             else:
                 color = 62
             
+            #Getting vertice coordinates and drawing shape
             module_coords = find_module_vertices(row)[0]
 
     # 1. Initialize the hatch
@@ -203,7 +210,6 @@ for train in train_id:
             boundary = msp.add_lwpolyline(module_coords, close=True)
             boundary.dxf.color = 250
 
-            #TODO Add text for each module
     #Determining the text for each module
             if row.MB in isHD:
                 wagon_text = "HD" + str(HD_train_num) + "_M" + str(HD_num)
@@ -231,20 +237,24 @@ for train in train_id:
             insert=row.Mod_center,                         # The coordinate point
             attachment_point=5  # The MTEXT equivalent of CENTER
         )
-            
+
+############Adding Cassette Label#############
+casstxt = "Cassette_"+str(layer)+"_"+str(cassnum)
+msp.add_mtext(  #mtext allows for multi-line text to be printed
+casstxt, 
+dxfattribs={
+    "color": 8,
+    "style": "BoldStyle",
+    "char_height": 65,  # Use char_height for MTEXT instead of height
+    }
+).set_location(
+    insert=(450, 700),                         # The coordinate point
+    attachment_point=5  # The MTEXT equivalent of CENTER
+)
+
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
 output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
 print("Saving to "+file_path) 
-
-
-    
-    
-
-
-    
-
-
-
