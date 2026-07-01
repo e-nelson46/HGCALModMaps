@@ -158,6 +158,7 @@ for train in train_id:
     West_num = 1
     East_num = 1
     HD_num = 1
+    Scint_num = 1
 
     train_df = cass_df[(cass_df.MB == train)] #making df for the train
     #print(f"Train {train} dataframe:")
@@ -246,7 +247,8 @@ for train in train_id:
                 wagon_text = train_labels[str(row.MB)] + "_M" + str(HD_num)
                 HD_num += 1
             elif row.MB in isScint:
-                wagon_text = "Scintillator"
+                wagon_text = "S" + str(Scint_num)
+                Scint_num += 1
             elif row.wagon == 1:
                 wagon_text = train_labels[str(row.MB)] + "_E" + str(East_num)
                 East_num += 1
@@ -263,7 +265,7 @@ for train in train_id:
             dxfattribs={
                 "color": 0,
                 "style": "BoldStyle",
-                "char_height": 25,  # Use char_height for MTEXT instead of height
+                "char_height": 20,  # Use char_height for MTEXT instead of height
                 "layer": "TEXT"
             }
         ).set_location(
