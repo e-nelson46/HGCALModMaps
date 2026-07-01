@@ -11,7 +11,7 @@ import sys
 
 #############Defining functions to draw the shapes#############
 
-def draw_solid_dot(msp, location, radius=1.0, color=1):
+def draw_solid_dot(msp, location, radius=1.0, color=244):
     """
     Draws a solid, filled circular dot at a specified location.
 
@@ -31,7 +31,7 @@ def draw_solid_dot(msp, location, radius=1.0, color=1):
     path.add_arc(center=location, radius=radius)
 
     # 4. Add the outer circle line matching the color
-    msp.add_circle(center=location, radius=radius, dxfattribs={"color": color})
+    msp.add_circle(center=location, radius=radius, dxfattribs={"color": color, "layer": "ENGINES"})
 
 def find_module_vertices(row):
     """
@@ -93,7 +93,9 @@ print(type(layer))
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
-shapes_layer = doc.layers.new("SHAPES")
+doc.layers.add(name="SHAPES")
+doc.layers.add(name="ENGINES")
+doc.layers.add(name="TEXT")
 style = doc.styles.add("BoldStyle", font="arial.ttf")
 style.dxf.width = 1.5 
 
@@ -149,8 +151,7 @@ for i in range(len(train_labels_HD)):
 
 #Defining variables used for coloring and labeling
 train_num = 0
-
-
+engine_locations = []
 
 for train in train_id:
     #Reseting variables
@@ -209,7 +210,7 @@ for train in train_id:
             elif train_num == 6:
                 color = 202
             elif train_num == 7:
-                color = 232
+                color = 222
             elif train_num == 8:
                 color = 242
             else:
@@ -227,10 +228,18 @@ for train in train_id:
 
     # 3. Add the closed polyline path to the hatch
             hatch.paths.add_polyline_path(module_coords, is_closed=True)
+            
 
     # 4. Draw the boundary line explicitly, and match its color so it looks seamless
-            boundary = msp.add_lwpolyline(module_coords, close=True)
+            boundary = msp.add_lwpolyline(module_coords, close=True, dxfattribs={"layer": "SHAPES"})
             boundary.dxf.color = 250
+
+    #Adding circles for Engines
+            if row.isEngine == True:
+                if (row.MB in isHD) or (row.MB in isScint):
+                    engine_locations.append(module_coords[3])
+                else:
+                    engine_locations.append(module_coords[5])
 
     #Determining the text for each module
             if row.MB in isHD:
@@ -245,7 +254,8 @@ for train in train_id:
                 wagon_text = train_labels[str(row.MB)] + "_W" + str(West_num)
                 West_num += 1
 
-            module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
+            #module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
+            module_text = wagon_text
 
             #Printing of the text
             msp.add_mtext(  #mtext allows for multi-line text to be printed
@@ -253,7 +263,8 @@ for train in train_id:
             dxfattribs={
                 "color": 0,
                 "style": "BoldStyle",
-                "char_height": 10,  # Use char_height for MTEXT instead of height
+                "char_height": 25,  # Use char_height for MTEXT instead of height
+                "layer": "TEXT"
             }
         ).set_location(
             insert=row.Mod_center,                         # The coordinate point
@@ -268,11 +279,15 @@ dxfattribs={
     "color": 8,
     "style": "BoldStyle",
     "char_height": 65,  # Use char_height for MTEXT instead of height
+    "layer": "TEXT"
     }
 ).set_location(
     insert=(450, 700),                         # The coordinate point
     attachment_point=5  # The MTEXT equivalent of CENTER
 )
+
+for coords in engine_locations:
+    draw_solid_dot(msp, coords, 15)
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
