@@ -88,7 +88,7 @@ def find_module_vertices(row):
 #cassnum = int(input("Enter cassette number: "))
 layer = int(sys.argv[1])
 cassnum = int(sys.argv[2])
-print(type(layer))
+
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
@@ -101,10 +101,15 @@ style.dxf.width = 1.5
 
 
 # Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
-df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep='\s+')
+df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep=r'\s+')
 
 # Wrapped both conditions in parentheses inside the main brackets
 df = df[(df.plane == layer)& (df.icassette == cassnum)]
+
+if df.empty == True:
+    print(f"Error: Not a valid layer or cassette number")
+    sys.exit()
+
 
 #Define important columns and building cassette dataframe
 col = [
@@ -115,6 +120,7 @@ col = [
 ]
 cass_df = df[col]
 
+print("Creating cassette dataframe...")
 
 isHD = []  #List of MB values for HD trains
 isScint = []  #List of MB values for Scintillators
@@ -153,6 +159,7 @@ for i in range(len(train_labels_HD)):
 train_num = 0
 engine_locations = []
 
+print("Drawing Modules...")
 for train in train_id:
     #Reseting variables
     West_num = 1
@@ -288,6 +295,7 @@ dxfattribs={
     attachment_point=5  # The MTEXT equivalent of CENTER
 )
 
+print("Adding Engines...")
 for coords in engine_locations:
     draw_solid_dot(msp, coords, 15)
 

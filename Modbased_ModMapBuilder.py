@@ -35,7 +35,7 @@ def draw_solid_dot(msp, location, radius=1.0, color=1):
 #cassnum = int(input("Enter cassette number: "))
 layer = int(sys.argv[1])
 cassnum = int(sys.argv[2])
-print(type(layer))
+
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
