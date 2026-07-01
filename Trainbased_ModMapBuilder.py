@@ -38,6 +38,9 @@ def find_module_vertices(row):
     Calculates the rotated coordinates and center of a module
 
     :param row: The corresponding module's dataframe row
+
+    :return module_coords: A list of tuples which are the coordinates for each vertex
+    "return center_coords: A tuple which conatins the coordinates of the center of the shape
     """
     # Check how many vertices this specific module has
     num_vertices = int(row["nvertices"]) 
@@ -113,12 +116,40 @@ cass_df = df[col]
 
 isHD = []  #List of MB values for HD trains
 isScint = []  #List of MB values for Scintillators
+train_labels_LD = []
+train_labels_HD = []
 train_id = cass_df['MB'].unique().tolist() #List of unique MB values
+
+#Determining order of the train labeling
+for train in train_id:
+    train_df = cass_df[(cass_df.MB == train)] 
+    
+    if train_df.wagon.nunique() == 1:   #If all wagon values are the same, classify as HD or Scint
+        if train < 40:
+            isHD.append(train)
+        else:
+            isScint.append(train)
+
+    if train in isHD:
+        y0_max = train_df['vy_3'].max()
+        train_labels_HD.append((train, y0_max))
+    elif train not in isScint:
+        y0_max = train_df['vy_3'].max()
+        train_labels_LD.append((train, y0_max))
+
+train_labels_LD.sort(key=lambda x: x[1], reverse=True)
+train_labels_HD.sort(key=lambda x: x[1], reverse=True)
+
+train_labels = {}
+for i in range(len(train_labels_LD)):
+    train_labels[str(train_labels_LD[i][0])] = "LD" + str(i+1)
+for i in range(len(train_labels_HD)):
+    train_labels[str(train_labels_HD[i][0])] = "HD" + str(i+1)
+
 
 #Defining variables used for coloring and labeling
 train_num = 0
-LD_train_num = 0
-HD_train_num = 0
+
 
 
 for train in train_id:
@@ -128,17 +159,8 @@ for train in train_id:
     HD_num = 1
 
     train_df = cass_df[(cass_df.MB == train)] #making df for the train
-    print(f"Train {train} dataframe:")
-    print(train_df)
-
-    if train_df.wagon.nunique() == 1:   #If all wagon values are the same, classify as HD or Scint
-        if train < 40:
-            isHD.append(train)
-            HD_train_num += 1
-        else:
-            isScint.append(train)
-    else:
-        LD_train_num += 1
+    #print(f"Train {train} dataframe:")
+    #print(train_df)
         
 
     if train in isHD: #If train is high density, only loop through wagon = 0 when drawing dataframe
@@ -169,7 +191,7 @@ for train in train_id:
     for wagon in range(wagon_loop):
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
         sub_train_df = sub_train_df.sort_values("Eng_Dist")
-        print(f"East/West Frame:\n {sub_train_df}")
+        #print(f"East/West Frame:\n {sub_train_df}")
 
         #Drawing the module and inputing text
         for index, row in sub_train_df.iterrows():
@@ -193,7 +215,7 @@ for train in train_id:
             else:
                 color = 62
             
-            #Getting vertice coordinates and drawing shape
+            #Getting vertex coordinates and drawing shape
             module_coords = find_module_vertices(row)[0]
 
     # 1. Initialize the hatch
@@ -212,15 +234,15 @@ for train in train_id:
 
     #Determining the text for each module
             if row.MB in isHD:
-                wagon_text = "HD" + str(HD_train_num) + "_M" + str(HD_num)
+                wagon_text = train_labels[str(row.MB)] + "_M" + str(HD_num)
                 HD_num += 1
             elif row.MB in isScint:
                 wagon_text = "Scintillator"
             elif row.wagon == 1:
-                wagon_text = "LD" + str(LD_train_num) + "_E" + str(East_num)
+                wagon_text = train_labels[str(row.MB)] + "_E" + str(East_num)
                 East_num += 1
             else:
-                wagon_text = "LD" + str(LD_train_num) + "_W" + str(West_num)
+                wagon_text = train_labels[str(row.MB)] + "_W" + str(West_num)
                 West_num += 1
 
             module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
