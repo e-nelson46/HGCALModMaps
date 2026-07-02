@@ -128,6 +128,7 @@ train_labels_LD = []
 train_labels_HD = []
 train_id = cass_df['MB'].unique().tolist() #List of unique MB values
 
+############Train Labeling###############
 #Determining order of the train labeling
 for train in train_id:
     train_df = cass_df[(cass_df.MB == train)] 
@@ -154,7 +155,7 @@ for i in range(len(train_labels_LD)):
 for i in range(len(train_labels_HD)):
     train_labels[str(train_labels_HD[i][0])] = "HD" + str(i+1)
 
-
+############Drawing the modules train by train###############
 #Defining variables used for coloring and labeling
 train_num = 0
 engine_locations = []
@@ -227,29 +228,29 @@ for train in train_id:
             #Getting vertex coordinates and drawing shape
             module_coords = find_module_vertices(row)[0]
 
-    # 1. Initialize the hatch
+            #Initialize the hatch
             hatch = msp.add_hatch()
 
-    # 2. Set the ACI color directly on the hatch entity 
+            #Set the ACI color directly on the hatch entity 
             hatch.dxf.color = color
             hatch.set_solid_fill(color=color)
 
-    # 3. Add the closed polyline path to the hatch
+            #Add the closed polyline path to the hatch
             hatch.paths.add_polyline_path(module_coords, is_closed=True)
             
 
-    # 4. Draw the boundary line explicitly, and match its color so it looks seamless
+            #Draw the boundary line explicitly, and match its color so it looks seamless
             boundary = msp.add_lwpolyline(module_coords, close=True, dxfattribs={"layer": "SHAPES"})
             boundary.dxf.color = 250
 
-    #Adding circles for Engines
+            #Adding circle locations for Engines
             if row.isEngine == True:
                 if (row.MB in isHD) or (row.MB in isScint):
                     engine_locations.append(module_coords[3])
                 else:
                     engine_locations.append(module_coords[5])
 
-    #Determining the text for each module
+            #Determining the text for each module
             if row.MB in isHD:
                 wagon_text = train_labels[str(row.MB)] + "_M" + str(HD_num)
                 HD_num += 1
@@ -266,7 +267,7 @@ for train in train_id:
             #module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
             module_text = wagon_text
 
-            #Printing of the text
+            #Printing the text
             msp.add_mtext(  #mtext allows for multi-line text to be printed
             module_text, 
             dxfattribs={
@@ -295,6 +296,7 @@ dxfattribs={
     attachment_point=5  # The MTEXT equivalent of CENTER
 )
 
+#Drawing in the engines from the pre-determined engine locations
 print("Adding Engines...")
 for coords in engine_locations:
     draw_solid_dot(msp, coords, 15)
