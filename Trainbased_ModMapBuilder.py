@@ -200,7 +200,42 @@ for train in train_id:
     #Narrowing down train dataframe further
     for wagon in range(wagon_loop):
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
-        sub_train_df = sub_train_df.sort_values("Eng_Dist")
+
+
+        #######################################################################
+        ##                                                                   ##
+        ##               Sorting Method for Odd Cassettes                    ##
+        ##                                                                   ##
+        #######################################################################
+
+        if cassnum % 2 == 1:            #odd casset num
+            # 1. Get the target y-value from the first row
+            y_row = sub_train_df['Mod_center'].iloc[0][1]
+
+            # 2. Calculate the distance for every row and save it as a new column
+            sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
+                lambda x: np.linalg.norm(np.array(engine_center) - np.array(x))
+            )
+
+            # 3. Create a boolean column: True if the y-coordinate matches y_row, False otherwise
+            sub_train_df['Is_Y_Match'] = sub_train_df['Mod_center'].apply(
+            lambda x: abs(x[1]-y_row) <= 2 
+            )
+
+            # 4. Sort the entire DataFrame
+            # - 'Is_Y_Match' ascending=False means True comes before False (your simple_sort group first)
+            # - 'Distance' ascending=True means smallest distances come first
+            sub_train_df = sub_train_df.sort_values(
+            by=['Is_Y_Match', 'Distance'], 
+            ascending=[False, True]
+            )
+
+            # 5. Clean up by dropping the temporary columns
+            sub_train_df = sub_train_df.drop(columns=['Is_Y_Match', 'Distance'])
+            ############################################################################################  
+        else:
+            sub_train_df = sub_train_df.sort_values("Eng_Dist")
+
         #print(f"East/West Frame:\n {sub_train_df}")
 
         #Drawing the module and inputing text
@@ -245,10 +280,18 @@ for train in train_id:
 
             #Adding circle locations for Engines
             if row.isEngine == True:
-                if (row.MB in isHD) or (row.MB in isScint):
-                    engine_locations.append(module_coords[3])
-                else:
+                #if (row.MB in isHD) or (row.MB in isScint):
+                #    engine_locations.append(module_coords[3])
+                #else:
+                #    engine_locations.append(module_coords[3])
+                if (cassnum % 2 == 0) and (row.MB not in isHD) and (row.MB not in isScint):
                     engine_locations.append(module_coords[5])
+                else:
+                    engine_locations.append(module_coords[3])
+
+
+
+
 
             #Determining the text for each module
             if row.MB in isHD:
