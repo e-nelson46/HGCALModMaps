@@ -152,7 +152,7 @@ for train in train_id:
         Mod_Dist_Data.append(distance)
     
     #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
-    train_df["Eng_Dist"] = Mod_Dist_Data
+    #train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
 
     if train in isHD:
@@ -194,12 +194,28 @@ for train in train_id:
     else:
         wagon_loop = 2
 
+    engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
+    engine_center = find_module_vertices(engine_df.squeeze())[1]
+
+    Mod_Dist_Data = []
+    Mod_Center_data = []
+    for index, row in train_df.iterrows():
+        mod_center = find_module_vertices(row)[1]
+        Mod_Center_data.append(mod_center)
+        distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
+        Mod_Dist_Data.append(distance)
+    
+    #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
+    train_df["Eng_Dist"] = Mod_Dist_Data
+    train_df["Mod_center"] = Mod_Center_data
+
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
 
     #Narrowing down train dataframe further
     for wagon in range(wagon_loop):
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
+        print("East/West Frame: \n" + sub_train_df.to_string())
 
 
         #######################################################################
@@ -211,6 +227,7 @@ for train in train_id:
         if cassnum % 2 == 1:            #odd casset num
             # 1. Get the target y-value from the first row
             y_row = sub_train_df['Mod_center'].iloc[0][1]
+
 
             # 2. Calculate the distance for every row and save it as a new column
             sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
@@ -234,7 +251,7 @@ for train in train_id:
             sub_train_df = sub_train_df.drop(columns=['Is_Y_Match', 'Distance'])
             ############################################################################################  
         else:
-            sub_train_df = sub_train_df.sort_values("Eng_Dist")
+            sub_train_df = sub_train_df.sort_values('Eng_Dist')
 
         #print(f"East/West Frame:\n {sub_train_df}")
 
