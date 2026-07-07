@@ -139,12 +139,28 @@ for train in train_id:
         else:
             isScint.append(train)
 
+    engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
+    engine_center = find_module_vertices(engine_df.squeeze())[1]
+
+#Getting data for additional colmuns containing the module center and distance from engine
+    Mod_Dist_Data = []
+    Mod_Center_data = []
+    for index, row in train_df.iterrows():
+        mod_center = find_module_vertices(row)[1]
+        Mod_Center_data.append(mod_center)
+        distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
+        Mod_Dist_Data.append(distance)
+    
+    #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
+    train_df["Eng_Dist"] = Mod_Dist_Data
+    train_df["Mod_center"] = Mod_Center_data
+
     if train in isHD:
-        y0_max = train_df['vy_3'].max()
-        train_labels_HD.append((train, y0_max))
+        max_coords = max(train_df['Mod_center'], key=lambda item: item[1])
+        train_labels_HD.append((train, max_coords[1]))
     elif train not in isScint:
-        y0_max = train_df['vy_3'].max()
-        train_labels_LD.append((train, y0_max))
+        max_coords = max(train_df['Mod_center'], key=lambda item: item[1])
+        train_labels_LD.append((train, max_coords[1]))
 
 train_labels_LD.sort(key=lambda x: x[1], reverse=True)
 train_labels_HD.sort(key=lambda x: x[1], reverse=True)
@@ -177,22 +193,6 @@ for train in train_id:
         wagon_loop = 1
     else:
         wagon_loop = 2
-
-    engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
-    engine_center = find_module_vertices(engine_df.squeeze())[1]
-
-    #Getting data for additional colmuns containing the module center and distance from engine
-    Mod_Dist_Data = []
-    Mod_Center_data = []
-    for index, row in train_df.iterrows():
-        mod_center = find_module_vertices(row)[1]
-        Mod_Center_data.append(mod_center)
-        distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
-        Mod_Dist_Data.append(distance)
-    
-    #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
-    train_df["Eng_Dist"] = Mod_Dist_Data
-    train_df["Mod_center"] = Mod_Center_data
 
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
@@ -288,10 +288,7 @@ for train in train_id:
                     engine_locations.append(module_coords[5])
                 else:
                     engine_locations.append(module_coords[3])
-
-
-
-
+                    
 
             #Determining the text for each module
             if row.MB in isHD:
