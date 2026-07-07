@@ -224,7 +224,7 @@ for train in train_id:
         ##                                                                   ##
         #######################################################################
 
-        if cassnum % 2 == 1:            #odd casset num
+        if cassnum % 2 == 1 and row.MB not in isScint:            #odd casset num
             # 1. Get the target y-value from the first row
             y_row = sub_train_df['Mod_center'].iloc[0][1]
 
@@ -301,11 +301,14 @@ for train in train_id:
                 #    engine_locations.append(module_coords[3])
                 #else:
                 #    engine_locations.append(module_coords[3])
-                if (cassnum % 2 == 0) and (row.MB not in isHD) and (row.MB not in isScint):
-                    engine_locations.append(module_coords[5])
-                else:
+                if (row.MB in isHD) or (row.MB in isScint):
                     engine_locations.append(module_coords[3])
-                    
+                elif(cassnum % 2 == 0):
+                    bottom_left = min(module_coords, key=lambda p: (round(p[1]), round(p[0])))
+                    engine_locations.append(bottom_left)
+                else:
+                    sorted_points = sorted(module_coords, key=lambda p: (-round(p[0]), round(p[1])))              
+                    engine_locations.append(sorted_points[0])
 
             #Determining the text for each module
             if row.MB in isHD:
