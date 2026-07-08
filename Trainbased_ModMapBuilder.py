@@ -153,6 +153,7 @@ for train in train_id:
     
     #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
     #train_df["Eng_Dist"] = Mod_Dist_Data
+    train_df = train_df.copy()
     train_df["Mod_center"] = Mod_Center_data
 
     if train in isHD:
@@ -206,6 +207,7 @@ for train in train_id:
         Mod_Dist_Data.append(distance)
     
     #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
+    train_df = train_df.copy()
     train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
 
@@ -215,6 +217,7 @@ for train in train_id:
     #Narrowing down train dataframe further
     for wagon in range(wagon_loop):
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
+        sub_train_df = sub_train_df.copy()
         print("East/West Frame: \n" + sub_train_df.to_string())
 
 
