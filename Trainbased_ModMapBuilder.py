@@ -7,91 +7,15 @@ import pandas as pd
 import os
 import numpy as np
 import sys
+import train_func
 
-
-#############Defining functions to draw the shapes#############
-
-def draw_solid_dot(msp, location, radius=1.0, color=244):
-    """
-    Draws a solid, filled circular dot at a specified location.
-
-    :param msp: The ezdxf modelspace object.
-    :param location: A tuple (x, y) for the center of the dot.
-    :param radius: The size/radius of the dot.
-    :param color: AutoCAD Color Index (default 1 = Red).
-    """
-    # 1. Create a blank hatch
-    hatch = msp.add_hatch()
-
-    # 2. Explicitly force the SOLID FILL to the desired color index
-    hatch.set_solid_fill(color=color)
-
-    # 3. Add the circular boundary path to the hatch
-    path = hatch.paths.add_edge_path()
-    path.add_arc(center=location, radius=radius)
-
-    # 4. Add the outer circle line matching the color
-    msp.add_circle(center=location, radius=radius, dxfattribs={"color": color, "layer": "ENGINES"})
-
-def find_module_vertices(row):
-    """
-    Calculates the rotated coordinates and center of a module
-
-    :param row: The corresponding module's dataframe row
-
-    :return module_coords: A list of tuples which are the coordinates for each vertex
-    "return center_coords: A tuple which conatins the coordinates of the center of the shape
-    """
-    # Check how many vertices this specific module has
-    num_vertices = int(row["nvertices"]) 
-    
-    # This list will hold the (x, y) tuples for the current module
-    module_coords = []
-    
-    #Angle of rotation
-    theta = -(np.radians(30 * (row["icassette"] - 1)))
-
-    #rotation matrix calculation
-    c, s = np.cos(theta), np.sin(theta)
-    R = np.array([
-        [c, -s],
-        [s,  c]
-    ])
-
-    # Loop from 0 up to the number of vertices (e.g., 0 to 5 for a hexagon)
-    for i in range(num_vertices):
-        
-        # Use an f-string to dynamically grab vx_0, vx_1, etc.
-        # We wrap it in int() to ensure they are integers as requested
-        x = int(row[f'vx_{i}'])
-        y = int(row[f'vy_{i}'])
-
-        vector = np.array([[x], [y]])        
-        rotated_coordinates = R @ vector
-        x_rot = float(rotated_coordinates[0][0])
-        y_rot = float(rotated_coordinates[1][0])
-
-        # Add the (x, y) pair to the list
-        module_coords.append((x_rot,y_rot))
-
-
-    center_x = sum(v[0] for v in module_coords) / num_vertices #Calculate center in x
-    center_y = sum(v[1] for v in module_coords) / num_vertices #Calculate center in y
-
-    center_coords = (center_x, center_y)
-
-    return module_coords, center_coords
 
 ############Inputs for Cassette and Layer Number###############
-
-#layer = int(input("Enter layer number: "))
-#cassnum = int(input("Enter cassette number: "))
 layer = int(sys.argv[1])
 cassnum = int(sys.argv[2])
 
 if layer <= 26:
     layer += 26
-
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
@@ -143,13 +67,13 @@ for train in train_id:
             isScint.append(train)
 
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
-    engine_center = find_module_vertices(engine_df.squeeze())[1]
+    engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
 
 #Getting data for additional colmuns containing the module center and distance from engine
     Mod_Dist_Data = []
     Mod_Center_data = []
     for index, row in train_df.iterrows():
-        mod_center = find_module_vertices(row)[1]
+        mod_center = train_func.find_module_vertices(row)[1]
         Mod_Center_data.append(mod_center)
         distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
         Mod_Dist_Data.append(distance)
@@ -199,12 +123,12 @@ for train in train_id:
         wagon_loop = 2
 
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
-    engine_center = find_module_vertices(engine_df.squeeze())[1]
+    engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
 
     Mod_Dist_Data = []
     Mod_Center_data = []
     for index, row in train_df.iterrows():
-        mod_center = find_module_vertices(row)[1]
+        mod_center = train_func.find_module_vertices(row)[1]
         Mod_Center_data.append(mod_center)
         distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
         Mod_Dist_Data.append(distance)
@@ -221,7 +145,7 @@ for train in train_id:
     for wagon in range(wagon_loop):
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
         sub_train_df = sub_train_df.copy()
-        print("East/West Frame: \n" + sub_train_df.to_string())
+        #print("East/West Frame: \n" + sub_train_df.to_string())
 
 
         #######################################################################
@@ -231,35 +155,32 @@ for train in train_id:
         #######################################################################
 
         if cassnum % 2 == 1 and row.MB not in isScint:            #odd casset num
-            # 1. Get the target y-value from the first row
+            #Get the target y-value from the first row
             y_row = sub_train_df['Mod_center'].iloc[0][1]
 
 
-            # 2. Calculate the distance for every row and save it as a new column
+            #Calculate the distance for every row and save it as a new column
             sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
                 lambda x: np.linalg.norm(np.array(engine_center) - np.array(x))
             )
 
-            # 3. Create a boolean column: True if the y-coordinate matches y_row, False otherwise
+            #Create a boolean column: True if the y-coordinate matches y_row, False otherwise
             sub_train_df['Is_Y_Match'] = sub_train_df['Mod_center'].apply(
             lambda x: abs(x[1]-y_row) <= 2 
             )
 
-            # 4. Sort the entire DataFrame
-            # - 'Is_Y_Match' ascending=False means True comes before False (your simple_sort group first)
-            # - 'Distance' ascending=True means smallest distances come first
+            #Sort the entire DataFrame
+            #'Is_Y_Match' ascending=False means True comes before False (your simple_sort group first)
+            #'Distance' ascending=True means smallest distances come first
             sub_train_df = sub_train_df.sort_values(
             by=['Is_Y_Match', 'Distance'], 
             ascending=[False, True]
             )
 
-            # 5. Clean up by dropping the temporary columns
+            #Clean up by dropping the temporary columns
             sub_train_df = sub_train_df.drop(columns=['Is_Y_Match', 'Distance'])
-            ############################################################################################  
         else:
             sub_train_df = sub_train_df.sort_values('Eng_Dist')
-
-        #print(f"East/West Frame:\n {sub_train_df}")
 
         #Drawing the module and inputing text
         for index, row in sub_train_df.iterrows():
@@ -284,7 +205,7 @@ for train in train_id:
                 color = 62
             
             #Getting vertex coordinates and drawing shape
-            module_coords = find_module_vertices(row)[0]
+            module_coords = train_func.find_module_vertices(row)[0]
 
             #Initialize the hatch
             hatch = msp.add_hatch()
@@ -303,57 +224,7 @@ for train in train_id:
 
             #Adding circle locations for Engines
             if row.isEngine == True:
-                #if (row.MB in isHD) or (row.MB in isScint):
-                #    engine_locations.append(module_coords[3])
-                #else:
-                #    engine_locations.append(module_coords[3])
-                
-                if (row.MB in isScint):
-                    """insert logic here"""  
-                ############################################################################
-                elif(cassnum == 1):
-                    x = (module_coords[2][0]+module_coords[1][0])/2
-                    y = (module_coords[2][1]+module_coords[1][1])/2
-                    point = (x,y)
-                    engine_locations.append(tuple(point))
-                ############################################################################
-                elif(cassnum == 2):
-                    if (row.MB in isHD):
-                        x = (module_coords[3][0]+module_coords[2][0])/2
-                        y = (module_coords[3][1]+module_coords[2][1])/2
-                        point = (x,y)
-                        engine_locations.append(tuple(point))
-                    else:
-                        bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
-                        bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
-                        far_left = min(module_coords, key=lambda p: (p[0]))
-                        x = ((bottom_left[0])+(far_left[0]))/2.0
-                        y = ((bottom_left[1])+(far_left[1]))/2.0
-                        point = (x,y)
-                        engine_locations.append(tuple(point))
-                ############################################################################
-                elif(cassnum == 3):
-                    x = (module_coords[2][0]+module_coords[3][0])/2
-                    y = (module_coords[2][1]+module_coords[3][1])/2
-                    point = (x,y)
-                    engine_locations.append(tuple(point))
-                ############################################################################        
-                elif(cassnum == 4):
-                    if (row.MB in isHD):                 #or (row.MB in isScint):
-                        x = (module_coords[4][0]+module_coords[3][0])/2
-                        y = (module_coords[4][1]+module_coords[3][1])/2
-                        point = (x,y)
-                        engine_locations.append(tuple(point))
-                    else:
-                        bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
-                        bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
-                        far_left = min(module_coords, key=lambda p: (p[0]))
-                        x = ((bottom_left[0])+(far_left[0]))/2.0
-                        y = ((bottom_left[1])+(far_left[1]))/2.0
-                        point = (x,y)
-                        engine_locations.append(tuple(point))
-
-
+                engine_locations = train_func.find_engine(row, cassnum, module_coords, engine_locations, isScint,isHD)
 
             #Determining the text for each module
             if row.MB in isHD:
@@ -428,7 +299,7 @@ dxfattribs={
 #Drawing in the engines from the pre-determined engine locations
 print("Adding Engines...")
 for coords in engine_locations:
-    draw_solid_dot(msp, coords, 15)
+    train_func.draw_solid_dot(msp, coords, 15)
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
