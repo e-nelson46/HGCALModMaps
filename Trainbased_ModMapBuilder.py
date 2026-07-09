@@ -337,9 +337,9 @@ for train in train_id:
             msp.add_mtext(  #mtext allows for multi-line text to be printed
             module_text, 
             dxfattribs={
-                "color": 0,
+                "color": 250,
                 "style": "BoldStyle",
-                "char_height": 20,  # Use char_height for MTEXT instead of height
+                "char_height": 25,  # Use char_height for MTEXT instead of height
                 "layer": "TEXT"
             }
         ).set_location(
