@@ -304,14 +304,53 @@ for train in train_id:
                 #    engine_locations.append(module_coords[3])
                 #else:
                 #    engine_locations.append(module_coords[3])
-                if (row.MB in isHD) or (row.MB in isScint):
-                    engine_locations.append(module_coords[3])
-                elif(cassnum % 2 == 0):
-                    bottom_left = min(module_coords, key=lambda p: (round(p[1]), round(p[0])))
-                    engine_locations.append(bottom_left)
-                else:
-                    sorted_points = sorted(module_coords, key=lambda p: (-round(p[0]), round(p[1])))              
-                    engine_locations.append(sorted_points[0])
+                
+                if (row.MB in isScint):
+                    """insert logic here"""  
+                ############################################################################
+                elif(cassnum == 1):
+                    x = (module_coords[2][0]+module_coords[1][0])/2
+                    y = (module_coords[2][1]+module_coords[1][1])/2
+                    point = (x,y)
+                    engine_locations.append(tuple(point))
+                ############################################################################
+                elif(cassnum == 2):
+                    if (row.MB in isHD):
+                        x = (module_coords[3][0]+module_coords[2][0])/2
+                        y = (module_coords[3][1]+module_coords[2][1])/2
+                        point = (x,y)
+                        engine_locations.append(tuple(point))
+                    else:
+                        bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
+                        bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
+                        far_left = min(module_coords, key=lambda p: (p[0]))
+                        x = ((bottom_left[0])+(far_left[0]))/2.0
+                        y = ((bottom_left[1])+(far_left[1]))/2.0
+                        point = (x,y)
+                        engine_locations.append(tuple(point))
+                ############################################################################
+                elif(cassnum == 3):
+                    x = (module_coords[2][0]+module_coords[3][0])/2
+                    y = (module_coords[2][1]+module_coords[3][1])/2
+                    point = (x,y)
+                    engine_locations.append(tuple(point))
+                ############################################################################        
+                elif(cassnum == 4):
+                    if (row.MB in isHD):                 #or (row.MB in isScint):
+                        x = (module_coords[4][0]+module_coords[3][0])/2
+                        y = (module_coords[4][1]+module_coords[3][1])/2
+                        point = (x,y)
+                        engine_locations.append(tuple(point))
+                    else:
+                        bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
+                        bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
+                        far_left = min(module_coords, key=lambda p: (p[0]))
+                        x = ((bottom_left[0])+(far_left[0]))/2.0
+                        y = ((bottom_left[1])+(far_left[1]))/2.0
+                        point = (x,y)
+                        engine_locations.append(tuple(point))
+
+
 
             #Determining the text for each module
             if row.MB in isHD:
