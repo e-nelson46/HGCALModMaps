@@ -256,6 +256,36 @@ for train in train_id:
             # 5. Clean up by dropping the temporary columns
             sub_train_df = sub_train_df.drop(columns=['Is_Y_Match', 'Distance'])
             ############################################################################################  
+        elif cassnum % 2 == 0 and row.MB not in isScint:
+            # 1. Get the target x and y values from the first row
+            # We need both coordinates to anchor our 60-degree line
+            x0, y0 = engine_center[0], engine_center[1]
+
+            # 2. Calculate the distance for every row and save it as a new column
+            sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
+                lambda p: np.linalg.norm(np.array(engine_center) - np.array(p))
+            )
+
+            # 3. Create a boolean column: True if the point is within a tolerance of 2 from the 30-degree line
+            # Tangent of 30 degrees is the slope (m)
+            m = np.tan(np.radians(30)) # This equals sqrt(3)
+            
+            # Using the perpendicular distance formula from a point to a line:
+            # d = |m*x - y + y0 - m*x0| / sqrt(m^2 + 1)
+            sub_train_df['Is_Angle_Match'] = sub_train_df['Mod_center'].apply(
+                lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 5 
+            )
+
+            # 4. Sort the entire DataFrame
+            # - 'Is_Angle_Match' ascending=False means True comes before False
+            # - 'Distance' ascending=True means smallest distances come first
+            sub_train_df = sub_train_df.sort_values(
+                by=['Is_Angle_Match', 'Distance'], 
+                ascending=[False, True]
+            )
+
+            # 5. Clean up by dropping the temporary columns
+            sub_train_df = sub_train_df.drop(columns=['Is_Angle_Match', 'Distance'])
         else:
             sub_train_df = sub_train_df.sort_values('Eng_Dist')
 
@@ -396,8 +426,13 @@ for train in train_id:
             t_label_coords = (temp_coords[0] + 150, temp_coords[1] + 30)
 
         #Adding text for train labels
+        if row.MB in isScint:
+            train_text = ''
+        else:
+            train_text = train_labels[str(row.MB)]
+
         msp.add_mtext(  #mtext allows for multi-line text to be printed
-            train_labels[str(row.MB)], 
+            train_text, 
             dxfattribs={
                 "color": 0,
                 "style": "BoldStyle",
