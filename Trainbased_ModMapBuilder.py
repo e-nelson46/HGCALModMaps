@@ -89,6 +89,9 @@ def find_module_vertices(row):
 layer = int(sys.argv[1])
 cassnum = int(sys.argv[2])
 
+if layer <= 26:
+    layer += 26
+
 
 ############Initial setup to open files and create ezdxf objects#############
 doc = ezdxf.new("R2010", True)
@@ -312,22 +315,22 @@ for train in train_id:
 
             #Determining the text for each module
             if row.MB in isHD:
-                wagon_text = train_labels[str(row.MB)] + "_M" + str(HD_num)
+                wagon_text ="M" + str(HD_num)
                 HD_num += 1
             elif row.MB in isScint:
                 wagon_text = "S" + str(Scint_num)
                 Scint_num += 1
             elif row.wagon == 1:
-                wagon_text = train_labels[str(row.MB)] + "_E" + str(East_num)
+                wagon_text = "E" + str(East_num)
                 East_num += 1
             else:
-                wagon_text = train_labels[str(row.MB)] + "_W" + str(West_num)
+                wagon_text = "W" + str(West_num)
                 West_num += 1
 
             #module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
             module_text = wagon_text
 
-            #Printing the text
+            #Printing the Module text
             msp.add_mtext(  #mtext allows for multi-line text to be printed
             module_text, 
             dxfattribs={
@@ -340,9 +343,33 @@ for train in train_id:
             insert=row.Mod_center,                         # The coordinate point
             attachment_point=5  # The MTEXT equivalent of CENTER
         )
+            
+        if row.MB in isHD:
+            # Sort by max y (descending), then min x (ascending)
+            temp_coords = sorted(train_df['Mod_center'], key=lambda coord: (-coord[1], coord[0]))[0]
+            t_label_coords = (temp_coords[0] - 150, temp_coords[1])
+        else:
+            # Sort by max y (descending), then max x (descending)
+            temp_coords = sorted(train_df['Mod_center'], key=lambda coord: (-coord[1], -coord[0]))[0]
+            t_label_coords = (temp_coords[0] + 150, temp_coords[1] + 30)
+
+        #Adding text for train labels
+        msp.add_mtext(  #mtext allows for multi-line text to be printed
+            train_labels[str(row.MB)], 
+            dxfattribs={
+                "color": 0,
+                "style": "BoldStyle",
+                "char_height": 30,  # Use char_height for MTEXT instead of height
+                "layer": "TEXT"
+            }
+        ).set_location(
+            insert=t_label_coords,                         # The coordinate point
+            attachment_point=5  # The MTEXT equivalent of CENTER
+        )
 
 ############Adding Cassette Label#############
-casstxt = "Cassette_"+str(layer)+"_"+str(cassnum)
+cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
+casstxt = "Cassette "+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+")"
 msp.add_mtext(  #mtext allows for multi-line text to be printed
 casstxt, 
 dxfattribs={
@@ -362,7 +389,7 @@ for coords in engine_locations:
     draw_solid_dot(msp, coords, 15)
 
 ############Saving objects to file#############
-filename = "Cassette_"+str(layer)+"_"+str(cassnum)+".dxf"
+filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
 output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
