@@ -166,7 +166,7 @@ for train in train_id:
 
             #Create a boolean column: True if the y-coordinate matches y_row, False otherwise
             sub_train_df['Is_Y_Match'] = sub_train_df['Mod_center'].apply(
-            lambda x: abs(x[1]-y_row) <= 2 
+            lambda x: abs(x[1]-y_row) <= 10 
             )
 
             #Sort the entire DataFrame
@@ -197,7 +197,7 @@ for train in train_id:
             # Using the perpendicular distance formula from a point to a line:
             # d = |m*x - y + y0 - m*x0| / sqrt(m^2 + 1)
             sub_train_df['Is_Angle_Match'] = sub_train_df['Mod_center'].apply(
-                lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 5 
+                lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 10 
             )
 
             # 4. Sort the entire DataFrame
@@ -287,15 +287,28 @@ for train in train_id:
             insert=row.Mod_center,                         # The coordinate point
             attachment_point=5  # The MTEXT equivalent of CENTER
         )
-            
-        if row.MB in isHD:
-            # Sort by max y (descending), then min x (ascending)
-            temp_coords = sorted(train_df['Mod_center'], key=lambda coord: (-coord[1], coord[0]))[0]
-            t_label_coords = (temp_coords[0] - 150, temp_coords[1])
-        else:
-            # Sort by max y (descending), then max x (descending)
-            temp_coords = sorted(train_df['Mod_center'], key=lambda coord: (-coord[1], -coord[0]))[0]
-            t_label_coords = (temp_coords[0] + 150, temp_coords[1] + 30)
+
+        #Determining the location of the train text
+        if layer <= 33: #if silicon  
+            if row.MB in isHD: #if HD
+                temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
+                if cassnum % 2 == 1: #if A or C cassette
+                    t_label_coords = (temp_coords[0] - 125, temp_coords[1] + 125)
+                else: # if B or D cassette
+                    t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 50)
+            else: #if LD
+                temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
+                t_label_coords = (temp_coords[0] + 150, temp_coords[1])
+        else: #if mixed
+            if row.MB in isScint: #if scint
+                temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
+                t_label_coords = (temp_coords[0] + 150, temp_coords[1])
+            else: #if LD
+                temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
+                if cassnum % 2 == 1: #if A or C cassette
+                    t_label_coords = (temp_coords[0] - 150, temp_coords[1])
+                else: # if B or D cassette
+                    t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 40)
 
         #Adding text for train labels
         if row.MB in isScint:
