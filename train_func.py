@@ -5,6 +5,43 @@ import numpy as np
 
 ###########Functions used in the Trainbased_ModMapBuilder.py script###########
 
+def find_traintext_loc(layer, cassnum, row, train_df, isHD, isScint):
+    """
+    Determines the location of the label for each train based on various properties
+    Inputs:
+        layer: layer on which the cassette is found
+        cassnum: identifies the cassette in the layer
+        row: the row corresponding to one module in the train
+        train_df: the dataframe for the train
+        isHD: a list of which trains are High density
+        isScint: a list of which trains are Scintillators
+    Returns:
+        t_label_coords: a tuple with the coordinates where the label should go
+    """
+    if layer <= 33: #if silicon  
+        if row.MB in isHD: #if HD
+            temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
+            if cassnum % 2 == 1: #if A or C cassette
+                t_label_coords = (temp_coords[0] - 125, temp_coords[1] + 125)
+            else: # if B or D cassette
+                t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 50)
+        else: #if LD
+            temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
+            t_label_coords = (temp_coords[0] + 150, temp_coords[1])
+    else: #if mixed
+        if row.MB in isScint: #if scint
+            temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
+            t_label_coords = (temp_coords[0] + 225, temp_coords[1])
+        else: #if LD
+            temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
+            if cassnum % 2 == 1: #if A or C cassette
+                t_label_coords = (temp_coords[0] - 150, temp_coords[1])
+            else: # if B or D cassette
+                t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 40)
+    return t_label_coords
+
+#######################################################################################
+
 def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
     """Finds where to draw an engine, placing it on the line between 
     HD and LD or between East and West
@@ -62,6 +99,7 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
             engine_locations.append(tuple(point))
     return(engine_locations)
 
+#############################################################################################
 
 def draw_solid_dot(msp, location, radius=1.0, color=244):
     """
@@ -85,7 +123,7 @@ def draw_solid_dot(msp, location, radius=1.0, color=244):
     # 4. Add the outer circle line matching the color
     msp.add_circle(center=location, radius=radius, dxfattribs={"color": color, "layer": "ENGINES"})
 
-
+#############################################################################################################
 
 def find_module_vertices(row):
     """

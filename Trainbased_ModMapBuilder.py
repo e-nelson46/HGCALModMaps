@@ -102,6 +102,7 @@ for i in range(len(train_labels_HD)):
 ############Drawing the modules train by train###############
 #Defining variables used for coloring and labeling
 train_num = 0
+Scint_train_num = 0
 engine_locations = []
 
 print("Drawing Modules...")
@@ -117,7 +118,7 @@ for train in train_id:
     #print(train_df)
         
 
-    if train in isHD: #If train is high density, only loop through wagon = 0 when drawing dataframe
+    if train in isHD or train in isScint: #If train is high density, only loop through wagon = 0 when drawing dataframe
         wagon_loop = 1
     else:
         wagon_loop = 2
@@ -127,8 +128,10 @@ for train in train_id:
     else:
         Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
 
+
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
     engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
+
 
     Mod_Dist_Data = []
     Mod_Center_data = []
@@ -143,6 +146,9 @@ for train in train_id:
     train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
 
+    West_module = train_df.sort_values(by='Mod_center', ascending=False).iloc[0]
+    West = West_module['wagon']
+
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
 
@@ -155,10 +161,11 @@ for train in train_id:
 
         #######################################################################
         ##                                                                   ##
-        ##               Sorting Method for Odd Cassettes                    ##
+        ##               Sorting Method for All Cassettes                    ##
         ##                                                                   ##
         #######################################################################
 
+        #Sorting the sections of the trains to order out from the engine
         if cassnum % 2 == 1 and row.MB not in isScint:            #odd casset num
             #Get the target y-value from the first row
             y_row = sub_train_df['Mod_center'].iloc[0][1]
@@ -269,12 +276,12 @@ for train in train_id:
             elif row.MB in isScint:
                 wagon_text = Scint[Scint_num]
                 Scint_num += 1
-            elif row.wagon == 1:
-                wagon_text = "E" + str(East_num)
-                East_num += 1
-            else:
+            elif row.wagon == West:
                 wagon_text = "W" + str(West_num)
                 West_num += 1
+            else:
+                wagon_text = "E" + str(East_num)
+                East_num += 1
 
             #module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
             module_text = wagon_text
@@ -293,31 +300,12 @@ for train in train_id:
             attachment_point=5  # The MTEXT equivalent of CENTER
         )
 
-        #Determining the location of the train text
-        if layer <= 33: #if silicon  
-            if row.MB in isHD: #if HD
-                temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
-                if cassnum % 2 == 1: #if A or C cassette
-                    t_label_coords = (temp_coords[0] - 125, temp_coords[1] + 125)
-                else: # if B or D cassette
-                    t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 50)
-            else: #if LD
-                temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
-                t_label_coords = (temp_coords[0] + 150, temp_coords[1])
-        else: #if mixed
-            if row.MB in isScint: #if scint
-                temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
-                t_label_coords = (temp_coords[0] + 150, temp_coords[1])
-            else: #if LD
-                temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
-                if cassnum % 2 == 1: #if A or C cassette
-                    t_label_coords = (temp_coords[0] - 150, temp_coords[1])
-                else: # if B or D cassette
-                    t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 40)
+        t_label_coords = train_func.find_traintext_loc(layer, cassnum, row, train_df, isHD, isScint)
 
         #Adding text for train labels
         if row.MB in isScint:
-            train_text = ''
+            Scint_train_num += 1
+            train_text = 'S' + str(Scint_train_num)
         else:
             train_text = train_labels[str(row.MB)]
 
