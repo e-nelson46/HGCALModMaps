@@ -122,6 +122,11 @@ for train in train_id:
     else:
         wagon_loop = 2
 
+    if len(train_df) == 2:
+        Scint = {1 : 'K', 2 :'J'}
+    else:
+        Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
+
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
     engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
 
@@ -262,7 +267,7 @@ for train in train_id:
                 wagon_text ="M" + str(HD_num)
                 HD_num += 1
             elif row.MB in isScint:
-                wagon_text = "S" + str(Scint_num)
+                wagon_text = Scint[Scint_num]
                 Scint_num += 1
             elif row.wagon == 1:
                 wagon_text = "E" + str(East_num)

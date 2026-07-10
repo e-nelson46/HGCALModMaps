@@ -17,11 +17,17 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
         isHD: a boolean list defining if the module is HD
     """
     if (row.MB in isScint):
-        """insert logic here"""  
+        x = (module_coords[0][0]+module_coords[1][0])/2
+        y = (module_coords[0][1]+module_coords[1][1])/2
+        point = (x,y)
+        engine_locations.append(tuple(point))
     ############################################################################
-    elif(cassnum == 1):
-        x = (module_coords[2][0]+module_coords[1][0])/2
-        y = (module_coords[2][1]+module_coords[1][1])/2
+    elif(cassnum % 2 == 1):
+        far_right_vertices = sorted(module_coords, key=lambda p: p[0], reverse=True)[:2]
+        bottom_right = far_right_vertices[0]                     
+        top_right = far_right_vertices[1]                         
+        x = ((bottom_right[0])+(top_right[0]))/2.0
+        y = ((bottom_right[1])+(top_right[1]))/2.0
         point = (x,y)
         engine_locations.append(tuple(point))
     ############################################################################
@@ -39,12 +45,6 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
             y = ((bottom_left[1])+(far_left[1]))/2.0
             point = (x,y)
             engine_locations.append(tuple(point))
-    ############################################################################
-    elif(cassnum == 3):
-        x = (module_coords[2][0]+module_coords[3][0])/2
-        y = (module_coords[2][1]+module_coords[3][1])/2
-        point = (x,y)
-        engine_locations.append(tuple(point))
     ############################################################################        
     elif(cassnum == 4):
         if (row.MB in isHD):                 #or (row.MB in isScint):
