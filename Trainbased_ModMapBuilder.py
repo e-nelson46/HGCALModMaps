@@ -186,7 +186,7 @@ for train in train_id:
 
             #Create a boolean column: True if the y-coordinate matches y_row, False otherwise
             sub_train_df['Is_Y_Match'] = sub_train_df['Mod_center'].apply(
-            lambda x: abs(x[1]-y_row) <= 10 
+            lambda x: abs(x[1]-y_row) <= 20 
             )
 
             #Sort the entire DataFrame
@@ -217,7 +217,7 @@ for train in train_id:
             # Using the perpendicular distance formula from a point to a line:
             # d = |m*x - y + y0 - m*x0| / sqrt(m^2 + 1)
             sub_train_df['Is_Angle_Match'] = sub_train_df['Mod_center'].apply(
-                lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 10 
+                lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 20
             )
 
             # 4. Sort the entire DataFrame
@@ -282,14 +282,11 @@ for train in train_id:
                 HD_num += 1
             elif row.MB in isScint:
                 module_text = row.typecode[3:5]
-            elif row.wagon == 1:
-                module_text = "E" + str(East_num)
-                East_num += 1
-            else:
+            elif row.wagon == West:
                 module_text = "W" + str(West_num)
                 West_num += 1
             else:
-                wagon_text = "E" + str(East_num)
+                module_text = "E" + str(East_num)
                 East_num += 1
 
             #Printing the Module text
