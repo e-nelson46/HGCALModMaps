@@ -12,7 +12,14 @@ import train_func
 
 ############Inputs for Cassette and Layer Number###############
 layer = int(sys.argv[1])
-cassnum = int(sys.argv[2])
+cassnum = (sys.argv[2])
+
+cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+
+if cassnum in cass_dict:
+    cassnum = cass_dict[cassnum]
+else:
+    cassnum = int(cassnum)
 
 if layer <= 26:
     layer += 26
@@ -102,7 +109,7 @@ for i in range(len(train_labels_HD)):
 ############Drawing the modules train by train###############
 #Defining variables used for coloring and labeling
 train_num = 0
-Scint_train_num = 0
+Scint_train_num = 4
 engine_locations = []
 
 print("Drawing Modules...")
@@ -125,8 +132,10 @@ for train in train_id:
 
     if len(train_df) == 2:
         Scint = {1 : 'K', 2 :'J'}
+        Scint_train_label = 'TH'
     else:
         Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
+        Scint_train_label = 'TL'
 
 
     engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
@@ -260,7 +269,6 @@ for train in train_id:
             #Add the closed polyline path to the hatch
             hatch.paths.add_polyline_path(module_coords, is_closed=True)
             
-
             #Draw the boundary line explicitly, and match its color so it looks seamless
             boundary = msp.add_lwpolyline(module_coords, close=True, dxfattribs={"layer": "SHAPES"})
             boundary.dxf.color = 250
@@ -304,8 +312,8 @@ for train in train_id:
 
         #Adding text for train labels
         if row.MB in isScint:
-            Scint_train_num += 1
-            train_text = 'S' + str(Scint_train_num)
+            Scint_train_num -= 1
+            train_text = Scint_train_label + str(Scint_train_num)
         else:
             train_text = train_labels[str(row.MB)]
 

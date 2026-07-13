@@ -27,11 +27,11 @@ def find_traintext_loc(layer, cassnum, row, train_df, isHD, isScint):
                 t_label_coords = (temp_coords[0] - 150, temp_coords[1] - 50)
         else: #if LD
             temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
-            t_label_coords = (temp_coords[0] + 150, temp_coords[1])
+            t_label_coords = (temp_coords[0] + 150, temp_coords[1] + 30)
     else: #if mixed
         if row.MB in isScint: #if scint
             temp_coords = max(train_df['Mod_center'], key=lambda item: item[0])
-            t_label_coords = (temp_coords[0] + 225, temp_coords[1])
+            t_label_coords = (temp_coords[0] + 250, temp_coords[1])
         else: #if LD
             temp_coords = min(train_df['Mod_center'], key=lambda item: item[0])
             if cassnum % 2 == 1: #if A or C cassette
