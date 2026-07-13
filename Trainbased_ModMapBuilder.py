@@ -159,10 +159,9 @@ for train in train_id:
         ##                                                                   ##
         #######################################################################
 
-        if cassnum % 2 == 1 and row.MB not in isScint:            #odd casset num
+        if cassnum % 2 == 1 and row.MB not in isScint:           
             #Get the target y-value from the first row
             y_row = sub_train_df['Mod_center'].iloc[0][1]
-
 
             #Calculate the distance for every row and save it as a new column
             sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
@@ -261,23 +260,19 @@ for train in train_id:
             #Adding circle locations for Engines
             if row.isEngine == True:
                 engine_locations = train_func.find_engine(row, cassnum, module_coords, engine_locations, isScint,isHD)
-
+            
             #Determining the text for each module
             if row.MB in isHD:
-                wagon_text ="M" + str(HD_num)
+                module_text ="M" + str(HD_num)
                 HD_num += 1
             elif row.MB in isScint:
-                wagon_text = Scint[Scint_num]
-                Scint_num += 1
+                module_text = row.typecode[3:5]
             elif row.wagon == 1:
-                wagon_text = "E" + str(East_num)
+                module_text = "E" + str(East_num)
                 East_num += 1
             else:
-                wagon_text = "W" + str(West_num)
+                module_text = "W" + str(West_num)
                 West_num += 1
-
-            #module_text = f"IsEngine: {row.isEngine}\n {wagon_text}\n (u, v): ({row.u}, {row.v})" #Text to be printed
-            module_text = wagon_text
 
             #Printing the Module text
             msp.add_mtext(  #mtext allows for multi-line text to be printed
