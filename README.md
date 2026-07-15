@@ -12,17 +12,19 @@ These can be installed with the typical pip install
 ## Syntax and Naming Conventions
 After copying the repository, you can make individual .dxf files using the command:  
 ```
-python3 Trainbased_ModMapBuilder.py 26 1  #args: file, layer number, cassette number
+python3 Trainbased_ModMapBuilder.py 33 2  #args: layer number, cassette number
 ```
-This will save a .dxf file to the specified output folder at the end of the script.  The script defaults to an output folder called TestDXFfiles.  These files have the naming convention  
+This will save a .dxf file to the specified output folder at the end of the script.  The script defaults to an output folder called TestDXFfiles.  These files have the naming convention:
+
 Cassette_'layer number'_'cassette number'  
-The layers go from 26 to 47 and each layer has 4 cassettes.
-You can use either the 1-21 naming scheme or the 27-47 naming scheme when calling the script and you can either specify the cassette by the number (1-4) or letter (A-D).
+
+The layers go from 27 to 47 and each layer has 4 cassettes.
+You can use either the 1-20 naming scheme or the 27-47 naming scheme when calling the script and you can either specify the cassette by the number (1-4) or letter (A-D).
 
 To run through mulitple layers and their cassettes, use the bash script shown below:  
 
 ```
-for i in {26..47}; do
+for i in {27..47}; do
 	for j in {1..4}; do
 		python3 Trainbased_ModMapBuilder.py "$i" "$j"
 	done
