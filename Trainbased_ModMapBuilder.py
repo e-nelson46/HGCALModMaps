@@ -1,6 +1,5 @@
-# Most current builder
 # Builds the map train by train to achieve correct labeling
-# To use run: python ./Trainbased_ModMapBuilder "Layer number" "Cassette number"
+# To use run: python3 Trainbased_ModMapBuilder.py "Layer number" "Cassette number/letter"
 
 import ezdxf
 import pandas as pd
@@ -11,6 +10,7 @@ import train_func
 
 
 ############Inputs for Cassette and Layer Number###############
+
 layer = int(sys.argv[1])
 cassnum = (sys.argv[2])
 
@@ -25,6 +25,7 @@ if layer <= 26:
     layer += 26
 
 ############Initial setup to open files and create ezdxf objects#############
+
 doc = ezdxf.new("R2010", True)
 msp = doc.modelspace()
 doc.layers.add(name="SHAPES")
@@ -62,7 +63,9 @@ train_labels_LD = []
 train_labels_HD = []
 train_id = cass_df['MB'].unique().tolist() #List of unique MB values
 
+
 ############Train Labeling###############
+
 #Determining order of the train labeling
 for train in train_id:
     train_df = cass_df[(cass_df.MB == train)] 
@@ -85,8 +88,7 @@ for train in train_id:
         distance = np.linalg.norm(np.array(engine_center) - np.array(mod_center))
         Mod_Dist_Data.append(distance)
     
-    #Adding new columns for distance from engine "Eng_dist" and module center "Mod_center"
-    #train_df["Eng_Dist"] = Mod_Dist_Data
+    #Adding new columns for module center "Mod_center"
     train_df = train_df.copy()
     train_df["Mod_center"] = Mod_Center_data
 
@@ -100,13 +102,16 @@ for train in train_id:
 train_labels_LD.sort(key=lambda x: x[1], reverse=True)
 train_labels_HD.sort(key=lambda x: x[1], reverse=True)
 
+#Creating dictionary for the module labels
 train_labels = {}
 for i in range(len(train_labels_LD)):
     train_labels[str(train_labels_LD[i][0])] = "LD" + str(i+1)
 for i in range(len(train_labels_HD)):
     train_labels[str(train_labels_HD[i][0])] = "HD" + str(i+1)
 
+
 ############Drawing the modules train by train###############
+
 #Defining variables used for coloring and labeling
 train_num = 0
 Scint_train_num = 4
@@ -121,15 +126,13 @@ for train in train_id:
     Scint_num = 1
 
     train_df = cass_df[(cass_df.MB == train)] #making df for the train
-    #print(f"Train {train} dataframe:")
-    #print(train_df)
-        
 
     if train in isHD or train in isScint: #If train is high density, only loop through wagon = 0 when drawing dataframe
         wagon_loop = 1
     else:
         wagon_loop = 2
 
+    #Defining Scintillator train label dictionaries
     if len(train_df) == 2:
         Scint = {1 : 'K', 2 :'J'}
         Scint_train_label = 'TH'
@@ -137,11 +140,11 @@ for train in train_id:
         Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
         Scint_train_label = 'TL'
 
-
-    engine_df = train_df[train_df.isEngine == True] #Making dataframe for the engine and the engine center
+    #Making dataframe for the engine and the engine center
+    engine_df = train_df[train_df.isEngine == True]
     engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
 
-
+    #Finding the values for each module's center and distance from the engine
     Mod_Dist_Data = []
     Mod_Center_data = []
     for index, row in train_df.iterrows():
@@ -155,24 +158,21 @@ for train in train_id:
     train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
 
+    #Determining which side is west and which is east
     West_module = train_df.sort_values(by='Mod_center', ascending=False).iloc[0]
     West = West_module['wagon']
 
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
 
-    #Narrowing down train dataframe further
+    #Narrowing down train dataframe further into wagons
     for wagon in range(wagon_loop):
+
         sub_train_df = train_df[train_df.wagon == wagon]  #Making East/West specific dataframe
         sub_train_df = sub_train_df.copy()
         #print("East/West Frame: \n" + sub_train_df.to_string())
 
-
-        #######################################################################
-        ##                                                                   ##
-        ##               Sorting Method for All Cassettes                    ##
-        ##                                                                   ##
-        #######################################################################
+        ############Sorting the modules in each wagon df###############
 
         #Sorting the sections of the trains to order out from the engine
         if cassnum % 2 == 1 and row.MB not in isScint:            #odd casset num
@@ -199,18 +199,18 @@ for train in train_id:
 
             #Clean up by dropping the temporary columns
             sub_train_df = sub_train_df.drop(columns=['Is_Y_Match', 'Distance'])
-            ############################################################################################  
+  
         elif cassnum % 2 == 0 and row.MB not in isScint:
-            # 1. Get the target x and y values from the first row
+            # Get the target x and y values from the first row
             # We need both coordinates to anchor our 60-degree line
             x0, y0 = engine_center[0], engine_center[1]
 
-            # 2. Calculate the distance for every row and save it as a new column
+            # Calculate the distance for every row and save it as a new column
             sub_train_df['Distance'] = sub_train_df['Mod_center'].apply(
                 lambda p: np.linalg.norm(np.array(engine_center) - np.array(p))
             )
 
-            # 3. Create a boolean column: True if the point is within a tolerance of 2 from the 30-degree line
+            # Create a boolean column: True if the point is within a tolerance of 2 from the 30-degree line
             # Tangent of 30 degrees is the slope (m)
             m = np.tan(np.radians(30)) # This equals sqrt(3)
             
@@ -220,7 +220,7 @@ for train in train_id:
                 lambda p: (abs(m * p[0] - p[1] + y0 - m * x0) / np.sqrt(m**2 + 1)) <= 20
             )
 
-            # 4. Sort the entire DataFrame
+            # Sort the entire DataFrame
             # - 'Is_Angle_Match' ascending=False means True comes before False
             # - 'Distance' ascending=True means smallest distances come first
             sub_train_df = sub_train_df.sort_values(
@@ -228,12 +228,13 @@ for train in train_id:
                 ascending=[False, True]
             )
 
-            # 5. Clean up by dropping the temporary columns
+            # Clean up by dropping the temporary columns
             sub_train_df = sub_train_df.drop(columns=['Is_Angle_Match', 'Distance'])
         else:
             sub_train_df = sub_train_df.sort_values('Eng_Dist')
 
-        #Drawing the module and inputing text
+        ############Drawing each module###############
+
         for index, row in sub_train_df.iterrows():
             #Setting color
             if train_num == 1:
@@ -276,16 +277,15 @@ for train in train_id:
             if row.isEngine == True:
                 engine_locations = train_func.find_engine(row, cassnum, module_coords, engine_locations, isScint,isHD)
             
-            #Determining the text for each module
-
+            ############Determining and writing text inside each module###############
             HD_txt_fix = {1:1, 2:2, 3:4, 4:3}
 
-            if row.MB in isHD:
+            if row.MB in isHD: #Labeling for HD modules
                 module_text ="M" + str(HD_num)
                 if layer <= 33 and cassnum % 2 == 1 and train_labels[str(row.MB)] == 'HD2':
                     module_text ="M" + str(HD_txt_fix[HD_num])
                 HD_num += 1
-            elif row.MB in isScint:
+            elif row.MB in isScint: #Labeling for Scintillator modules
                 module_text = row.typecode[3:5]
                 #Fixing typecode identifier
                 if module_text[1] == '2':
@@ -294,13 +294,14 @@ for train in train_id:
                     module_text = module_text[0] + '11'
                 elif module_text[1] == '0':
                     module_text = module_text[0] + '10'
-            elif row.wagon == West:
+            elif row.wagon == West:  #Labeling for west LD modules
                 module_text = "W" + str(West_num)
                 West_num += 1
-            else:
+            else: #Labeling for east LD modules
                 module_text = "E" + str(East_num)
                 East_num += 1
 
+            #Adapts text size based on module types
             num_vertices = int(row["nvertices"])
             if row.MB in isScint:
                 text_size = 40
@@ -325,6 +326,8 @@ for train in train_id:
             insert=row.Mod_center,                         # The coordinate point
             attachment_point=5  # The MTEXT equivalent of CENTER
         )
+
+        ############Adding labeling to the edges of each train###############
 
         t_label_coords = train_func.find_traintext_loc(layer, cassnum, row, train_df, isHD, isScint)
 
@@ -364,14 +367,14 @@ dxfattribs={
     attachment_point=5  # The MTEXT equivalent of CENTER
 )
 
-#Drawing in the engines from the pre-determined engine locations
+############Adding engines from pre-determined locations###############
 print("Adding Engines...")
 for coords in engine_locations:
     train_func.draw_solid_dot(msp, coords, 15)
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
-output_folder = "ExampleMaps"
+output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
 print("Saving to "+file_path) 
