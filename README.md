@@ -6,6 +6,7 @@ To run this you will need the following python libraries installed:
 - ezdxf
 - pandas
 - numpy
+
 These can be installed with the typical pip install
 
 ## Syntax and Naming Conventions
