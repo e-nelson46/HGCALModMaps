@@ -34,8 +34,8 @@ style = doc.styles.add("BoldStyle", font="arial.ttf")
 style.dxf.width = 1.5 
 
 
-# Changed delim_whitespace=True to sep='\s+' to resolve the FutureWarning
-df = pd.read_csv('geometry_sipmontile_v16.6.hgcal.txt', sep=r'\s+')
+# Changed delim_whitespace=True to sep=r'\s+' to resolve the FutureWarning
+df = pd.read_csv("Active Geometry SIPM Tile Data 2026.csv")
 
 # Wrapped both conditions in parentheses inside the main brackets
 df = df[(df.plane == layer)& (df.icassette == cassnum)]
@@ -277,11 +277,23 @@ for train in train_id:
                 engine_locations = train_func.find_engine(row, cassnum, module_coords, engine_locations, isScint,isHD)
             
             #Determining the text for each module
+
+            HD_txt_fix = {1:1, 2:2, 3:4, 4:3}
+
             if row.MB in isHD:
                 module_text ="M" + str(HD_num)
+                if layer <= 33 and cassnum % 2 == 1 and train_labels[str(row.MB)] == 'HD2':
+                    module_text ="M" + str(HD_txt_fix[HD_num])
                 HD_num += 1
             elif row.MB in isScint:
                 module_text = row.typecode[3:5]
+                #Fixing typecode identifier
+                if module_text[1] == '2':
+                    module_text = module_text[0] + '12'
+                elif module_text[1] == '1':
+                    module_text = module_text[0] + '11'
+                elif module_text[1] == '0':
+                    module_text = module_text[0] + '10'
             elif row.wagon == West:
                 module_text = "W" + str(West_num)
                 West_num += 1
@@ -289,13 +301,24 @@ for train in train_id:
                 module_text = "E" + str(East_num)
                 East_num += 1
 
+            num_vertices = int(row["nvertices"])
+            if row.MB in isScint:
+                text_size = 40
+            elif num_vertices == 4:
+                text_size = 25
+            elif num_vertices == 5:
+                text_size = 32
+            else:
+                text_size = 35
+
+
             #Printing the Module text
             msp.add_mtext(  #mtext allows for multi-line text to be printed
             module_text, 
             dxfattribs={
                 "color": 250,
                 "style": "BoldStyle",
-                "char_height": 25,  # Use char_height for MTEXT instead of height
+                "char_height": text_size,  # Use char_height for MTEXT instead of height
                 "layer": "TEXT"
             }
         ).set_location(
@@ -348,7 +371,7 @@ for coords in engine_locations:
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
-output_folder = "TestDXFfiles"
+output_folder = "ExampleMaps"
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
 print("Saving to "+file_path) 
