@@ -42,7 +42,7 @@ def find_traintext_loc(layer, cassnum, row, train_df, isHD, isScint):
 
 #######################################################################################
 
-def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
+def find_engine(row, cassnum, module_coords, isScint, isHD):
     """Finds where to draw an engine, placing it on the line between 
     HD and LD or between East and West
     INPUTS:
@@ -57,7 +57,7 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
         x = (module_coords[0][0]+module_coords[1][0])/2
         y = (module_coords[0][1]+module_coords[1][1])/2
         point = (x,y)
-        engine_locations.append(tuple(point))
+        engine_locations = tuple(point)
     ############################################################################
     elif(cassnum % 2 == 1):
         far_right_vertices = sorted(module_coords, key=lambda p: p[0], reverse=True)[:2]
@@ -66,14 +66,14 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
         x = ((bottom_right[0])+(top_right[0]))/2.0
         y = ((bottom_right[1])+(top_right[1]))/2.0
         point = (x,y)
-        engine_locations.append(tuple(point))
+        engine_locations = tuple(point)
     ############################################################################
     elif(cassnum == 2):
         if (row.MB in isHD):
             x = (module_coords[3][0]+module_coords[2][0])/2
             y = (module_coords[3][1]+module_coords[2][1])/2
             point = (x,y)
-            engine_locations.append(tuple(point))
+            engine_locations = tuple(point)
         else:
             bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
             bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
@@ -81,14 +81,14 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
             x = ((bottom_left[0])+(far_left[0]))/2.0
             y = ((bottom_left[1])+(far_left[1]))/2.0
             point = (x,y)
-            engine_locations.append(tuple(point))
+            engine_locations = tuple(point)
     ############################################################################        
     elif(cassnum == 4):
         if (row.MB in isHD):                 #or (row.MB in isScint):
             x = (module_coords[4][0]+module_coords[3][0])/2
             y = (module_coords[4][1]+module_coords[3][1])/2
             point = (x,y)
-            engine_locations.append(tuple(point))
+            engine_locations = tuple(point)
         else:
             bottom_two_vertices = sorted(module_coords, key=lambda p: p[1])[:2]
             bottom_left = min(bottom_two_vertices, key=lambda p: p[0])
@@ -96,8 +96,8 @@ def find_engine(row, cassnum, module_coords, engine_locations, isScint, isHD):
             x = ((bottom_left[0])+(far_left[0]))/2.0
             y = ((bottom_left[1])+(far_left[1]))/2.0
             point = (x,y)
-            engine_locations.append(tuple(point))
-    return(engine_locations)
+            engine_locations = tuple(point)
+    return engine_locations
 
 #############################################################################################
 

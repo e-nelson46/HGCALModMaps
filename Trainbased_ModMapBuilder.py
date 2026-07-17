@@ -275,7 +275,13 @@ for train in train_id:
 
             #Adding circle locations for Engines
             if row.isEngine == True:
-                engine_locations = train_func.find_engine(row, cassnum, module_coords, engine_locations, isScint,isHD)
+                engine_location = train_func.find_engine(row, cassnum, module_coords, isScint,isHD)
+                if row.MB in isHD:
+                    engine_color = 214
+                else:
+                    engine_color = 246
+                engine_info = (engine_location, engine_color)
+                engine_locations.append(engine_info)
             
             ############Determining and writing text inside each module###############
             HD_txt_fix = {1:1, 2:2, 3:4, 4:3}
@@ -300,6 +306,8 @@ for train in train_id:
             else: #Labeling for east LD modules
                 module_text = "E" + str(East_num)
                 East_num += 1
+
+            module_text += f"\n{{\\H15;({row.u},{row.v})}}"
 
             #Adapts text size based on module types
             num_vertices = int(row["nvertices"])
@@ -369,8 +377,8 @@ dxfattribs={
 
 ############Adding engines from pre-determined locations###############
 print("Adding Engines...")
-for coords in engine_locations:
-    train_func.draw_solid_dot(msp, coords, 15)
+for engine_info in engine_locations:
+    train_func.draw_solid_dot(msp, engine_info[0], 15, engine_info[1])
 
 ############Saving objects to file#############
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
