@@ -122,7 +122,7 @@ for i in range(len(train_labels_HD)):
 
 #Defining variables used for coloring and labeling
 train_num = 0
-Scint_train_num = 4
+Scint_train_num = 3
 engine_locations = []
 
 print("Drawing Modules...")
@@ -162,9 +162,10 @@ for train in train_id:
     engine_json_df = engine_json_df.squeeze()
     #print(engine_json_df)
     engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
-    u = float(engine_json_df["u"])
-    v = float(engine_json_df["v"])
-    type = engine_json_df["typecode"]
+    if train not in isScint:
+        u = float(engine_json_df["u"])
+        v = float(engine_json_df["v"])
+        type = engine_json_df["typecode"]
 
     wagon_json_df = train_json_df[train_json_df.isEngine == "0"]
     wagon_json_df = wagon_json_df.squeeze()
@@ -173,19 +174,19 @@ for train in train_id:
         wagon_type = wagon_json_df["typecode"]
         json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
     elif train in isScint:
-        json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
+        pass
+        #wagon_type = wagon_json_df["typecode"]
+        #json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({"wagon_type":wagon_type})
     else:
         if wagon_json_df["typecode"].iloc[0][1] == "W":
             wagon_west = wagon_json_df["typecode"].iloc[0]
             wagon_east = wagon_json_df["typecode"].iloc[1]
         else:
             wagon_east = wagon_json_df["typecode"].iloc[0]
-            wagon_west = wagon_json_df["typecode"].iloc[1]
-                                                        
-
+            wagon_west = wagon_json_df["typecode"].iloc[1]                                                        
         json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_west":wagon_west, "wagon_east":wagon_east})
 
-    print(json_info)
+    #print(json_info)
 
 
     #Finding the values for each module's center and distance from the engine
@@ -351,14 +352,17 @@ for train in train_id:
                 module_text = "E" + str(East_num)
                 East_num += 1
 
-
+            #Adding module info to dictionary for json file
             if row.HDorLD == 0:
                 daqLinks = row.dataLinks_ld
             else:
                 daqLinks = row.dataLinks_hd
 
             module_dict = {'u':row.u, 'v':row.v, 'type':row.typecode, 'i_rot':row.irot, 'trigLinks':row.trigLinks, 'daqLinks':daqLinks}
-            json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({module_text:module_dict})
+            if row.MB in isScint:
+                json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({module_text:module_dict})
+            else:    
+                json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({module_text:module_dict})
 
             module_text += f"\n{{\\H15;({row.u},{row.v})}}"
 
@@ -394,8 +398,8 @@ for train in train_id:
 
         #Adding text for train labels
         if row.MB in isScint:
-            Scint_train_num -= 1
             train_text = Scint_train_label + str(Scint_train_num)
+            Scint_train_num -= 1
         else:
             train_text = train_labels[str(row.MB)]
 
