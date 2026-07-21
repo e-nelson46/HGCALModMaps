@@ -6,6 +6,7 @@ import pandas as pd
 import os
 import numpy as np
 import sys
+import json
 import train_func
 
 
@@ -15,6 +16,7 @@ layer = int(sys.argv[1])
 cassnum = (sys.argv[2])
 
 cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
 
 if cassnum in cass_dict:
     cassnum = cass_dict[cassnum]
@@ -37,9 +39,11 @@ style.dxf.width = 1.5
 
 # Changed delim_whitespace=True to sep=r'\s+' to resolve the FutureWarning
 df = pd.read_csv("Active Geometry SIPM Tile Data 2026.csv")
+json_df = pd.read_csv('geometry_simotherboards.hgcal.txt', sep=r'\s+')
 
 # Wrapped both conditions in parentheses inside the main brackets
 df = df[(df.plane == layer)& (df.icassette == cassnum)]
+json_df = json_df[(json_df.plane == layer)& (json_df.icassette == cassnum)]
 
 if df.empty == True:
     print(f"Error: Not a valid layer or cassette number")
@@ -51,11 +55,15 @@ col = [
     'plane','u','v','itype','typecode',
     'x0','y0','irot','nvertices', 'vx_0','vy_0','vx_1','vy_1','vx_2','vy_2',
     'vx_3','vy_3','vx_4','vy_4','vx_5','vy_5','vx_6','vy_6','isEngine','icassette',
-    'MB', 'wagon'
+    'MB', 'wagon', "trigLinks", 'HDorLD', 'dataLinks_ld', 'dataLinks_hd'
 ]
 cass_df = df[col]
-
+cass_json_df = json_df[col]
+#print(cass_json_df)
 print("Creating cassette dataframe...")
+
+#Creating dictionary for a json file
+json_info = {f"{layer}{cass_label[cassnum]}":{}}
 
 isHD = []  #List of MB values for HD trains
 isScint = []  #List of MB values for Scintillators
@@ -126,6 +134,9 @@ for train in train_id:
     Scint_num = 1
 
     train_df = cass_df[(cass_df.MB == train)] #making df for the train
+    cass_json_df['MB'] = pd.to_numeric(cass_json_df['MB'], errors='coerce')
+    train_json_df = cass_json_df[(cass_json_df.MB == float(train))]
+    #print(train_json_df)
 
     if train in isHD or train in isScint: #If train is high density, only loop through wagon = 0 when drawing dataframe
         wagon_loop = 1
@@ -140,9 +151,42 @@ for train in train_id:
         Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
         Scint_train_label = 'TL'
 
+    if train in isScint:
+        json_info[f"{layer}{cass_label[cassnum]}"].update({f"{Scint_train_label}{Scint_train_num}":{}})
+    else:
+        json_info[f"{layer}{cass_label[cassnum]}"].update({f"{train_labels[str(train)]}":{}})
+
     #Making dataframe for the engine and the engine center
     engine_df = train_df[train_df.isEngine == True]
+    engine_json_df = train_json_df[train_json_df.isEngine == "1"]
+    engine_json_df = engine_json_df.squeeze()
+    #print(engine_json_df)
     engine_center = train_func.find_module_vertices(engine_df.squeeze())[1]
+    u = float(engine_json_df["u"])
+    v = float(engine_json_df["v"])
+    type = engine_json_df["typecode"]
+
+    wagon_json_df = train_json_df[train_json_df.isEngine == "0"]
+    wagon_json_df = wagon_json_df.squeeze()
+
+    if train in isHD:
+        wagon_type = wagon_json_df["typecode"]
+        json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
+    elif train in isScint:
+        json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
+    else:
+        if wagon_json_df["typecode"].iloc[0][1] == "W":
+            wagon_west = wagon_json_df["typecode"].iloc[0]
+            wagon_east = wagon_json_df["typecode"].iloc[1]
+        else:
+            wagon_east = wagon_json_df["typecode"].iloc[0]
+            wagon_west = wagon_json_df["typecode"].iloc[1]
+                                                        
+
+        json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_west":wagon_west, "wagon_east":wagon_east})
+
+    print(json_info)
+
 
     #Finding the values for each module's center and distance from the engine
     Mod_Dist_Data = []
@@ -307,6 +351,15 @@ for train in train_id:
                 module_text = "E" + str(East_num)
                 East_num += 1
 
+
+            if row.HDorLD == 0:
+                daqLinks = row.dataLinks_ld
+            else:
+                daqLinks = row.dataLinks_hd
+
+            module_dict = {'u':row.u, 'v':row.v, 'type':row.typecode, 'i_rot':row.irot, 'trigLinks':row.trigLinks, 'daqLinks':daqLinks}
+            json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({module_text:module_dict})
+
             module_text += f"\n{{\\H15;({row.u},{row.v})}}"
 
             #Adapts text size based on module types
@@ -360,7 +413,6 @@ for train in train_id:
         )
 
 ############Adding Cassette Label#############
-cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
 casstxt = "Cassette "+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+")"
 msp.add_mtext(  #mtext allows for multi-line text to be printed
 casstxt, 
@@ -381,6 +433,12 @@ for engine_info in engine_locations:
     train_func.draw_solid_dot(msp, engine_info[0], 15, engine_info[1])
 
 ############Saving objects to file#############
+
+filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").json"
+with open(filename, 'w', encoding='utf-8') as file:
+    json.dump(json_info, file, indent=4, ensure_ascii=False)
+
+
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
 output_folder = "TestDXFfiles"
 file_path = os.path.join(output_folder, filename)

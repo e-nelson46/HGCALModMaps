@@ -5,3 +5,5 @@ TestDXFfiles/Cassette_*
 TestDXFfiles
 ExamplesMaps
 ExamplesMaps/*
+*.json
+PrintDF.py
