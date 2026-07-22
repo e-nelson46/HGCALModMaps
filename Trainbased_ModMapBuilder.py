@@ -204,8 +204,8 @@ for train in train_id:
     train_df["Mod_center"] = Mod_Center_data
 
     #Determining which side is west and which is east
-    West_module = train_df.sort_values(by='Mod_center', ascending=False).iloc[0]
-    West = West_module['wagon']
+    #West_module = train_df.sort_values(by='Mod_center', ascending=False).iloc[0]
+    #West = West_module['wagon']
 
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
@@ -345,7 +345,7 @@ for train in train_id:
                     module_text = module_text[0] + '11'
                 elif module_text[1] == '0':
                     module_text = module_text[0] + '10'
-            elif row.wagon == West:  #Labeling for west LD modules
+            elif row.wagon == 0:  #Labeling for west LD modules
                 module_text = "W" + str(West_num)
                 West_num += 1
             else: #Labeling for east LD modules
@@ -364,14 +364,14 @@ for train in train_id:
             else:    
                 json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({module_text:module_dict})
 
-            module_text += f"\n{{\\H15;({row.u},{row.v})}}"
+            module_text += f"\n{{\\H23;({row.u},{row.v})}}"
 
             #Adapts text size based on module types
             num_vertices = int(row["nvertices"])
             if row.MB in isScint:
                 text_size = 40
             elif num_vertices == 4:
-                text_size = 25
+                text_size = 28
             elif num_vertices == 5:
                 text_size = 32
             else:
@@ -408,7 +408,7 @@ for train in train_id:
             dxfattribs={
                 "color": 0,
                 "style": "BoldStyle",
-                "char_height": 30,  # Use char_height for MTEXT instead of height
+                "char_height": 40,  # Use char_height for MTEXT instead of height
                 "layer": "TEXT"
             }
         ).set_location(
