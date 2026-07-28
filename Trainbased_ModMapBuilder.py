@@ -1,5 +1,6 @@
 # Builds the map train by train to achieve correct labeling
 # To use run: python3 Trainbased_ModMapBuilder.py "Layer number" "Cassette number/letter"
+# To change output folder, go to the "saving objects to file" section at the very end and change the variable "output_folder"
 
 import ezdxf
 import pandas as pd
@@ -15,8 +16,19 @@ import train_func
 layer = int(sys.argv[1])
 cassnum = (sys.argv[2])
 
-cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
-cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
+#Changing the cassette labels based on the layer
+if layer <= 33 and layer % 2 == 1: #Odd numbered layer before 33
+    cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+    cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
+elif layer <= 33 and layer % 2 == 0: #Even numbered layer before 33
+    cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+    cass_label = {1:'A', 2:'B', 3:'C', 4:'D'} 
+elif layer > 33 and layer % 2 == 0:  #Odd numbered layer after 33
+    cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+    cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
+else: #Even numbered layer after 33
+    cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
+    cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}    
 
 if cassnum in cass_dict:
     cassnum = cass_dict[cassnum]
@@ -59,7 +71,6 @@ col = [
 ]
 cass_df = df[col]
 cass_json_df = json_df[col]
-#print(cass_json_df)
 print("Creating cassette dataframe...")
 
 #Creating dictionary for a json file
@@ -136,9 +147,8 @@ for train in train_id:
     train_df = cass_df[(cass_df.MB == train)] #making df for the train
     cass_json_df['MB'] = pd.to_numeric(cass_json_df['MB'], errors='coerce')
     train_json_df = cass_json_df[(cass_json_df.MB == float(train))]
-    #print(train_json_df)
 
-    if train in isHD or train in isScint: #If train is high density, only loop through wagon = 0 when drawing dataframe
+    if train in isHD or train in isScint: #If train is high density or Scint, only loop through wagon = 0 when drawing dataframe
         wagon_loop = 1
     else:
         wagon_loop = 2
@@ -151,6 +161,7 @@ for train in train_id:
         Scint = {1: 'G', 2: 'E', 3: 'D', 4: 'B', 5: 'A'}
         Scint_train_label = 'TL'
 
+    #Adding train labels to json dictionaries
     if train in isScint:
         json_info[f"{layer}{cass_label[cassnum]}"].update({f"{Scint_train_label}{Scint_train_num}":{}})
     else:
@@ -170,6 +181,7 @@ for train in train_id:
     wagon_json_df = train_json_df[train_json_df.isEngine == "0"]
     wagon_json_df = wagon_json_df.squeeze()
 
+    #Adding engine and wagon info to json dictionaries
     if train in isHD:
         wagon_type = wagon_json_df["typecode"]
         json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
@@ -202,10 +214,6 @@ for train in train_id:
     train_df = train_df.copy()
     train_df["Eng_Dist"] = Mod_Dist_Data
     train_df["Mod_center"] = Mod_Center_data
-
-    #Determining which side is west and which is east
-    #West_module = train_df.sort_values(by='Mod_center', ascending=False).iloc[0]
-    #West = West_module['wagon']
 
     #Changing number to determine color (should be named color_num, but too lazy to change)
     train_num += 1
@@ -304,7 +312,7 @@ for train in train_id:
             #Getting vertex coordinates and drawing shape
             module_coords = train_func.find_module_vertices(row)[0]
 
-            #Initialize the hatch
+            #Initialize the hatch to add fill color
             hatch = msp.add_hatch()
 
             #Set the ACI color directly on the hatch entity 
@@ -333,6 +341,7 @@ for train in train_id:
 
             if row.MB in isHD: #Labeling for HD modules
                 module_text ="M" + str(HD_num)
+                #Hardcoded name change for a certain type of train
                 if layer <= 33 and cassnum % 2 == 1 and train_labels[str(row.MB)] == 'HD2':
                     module_text ="M" + str(HD_txt_fix[HD_num])
                 HD_num += 1
@@ -364,7 +373,7 @@ for train in train_id:
             else:    
                 json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({module_text:module_dict})
 
-            module_text += f"\n{{\\H23;({row.u},{row.v})}}"
+            module_text += f"\n{{\\H23;({row.u},{row.v})}}" # <--- Change "H23" to change u,v text size
 
             #Adapts text size based on module types
             num_vertices = int(row["nvertices"])
@@ -384,7 +393,7 @@ for train in train_id:
             dxfattribs={
                 "color": 250,
                 "style": "BoldStyle",
-                "char_height": text_size,  # Use char_height for MTEXT instead of height
+                "char_height": text_size,  # <--- Go to if else above to change text size of module labels
                 "layer": "TEXT"
             }
         ).set_location(
@@ -408,7 +417,7 @@ for train in train_id:
             dxfattribs={
                 "color": 0,
                 "style": "BoldStyle",
-                "char_height": 40,  # Use char_height for MTEXT instead of height
+                "char_height": 40,  # <--- Change this to change train label text size
                 "layer": "TEXT"
             }
         ).set_location(
@@ -423,7 +432,7 @@ casstxt,
 dxfattribs={
     "color": 8,
     "style": "BoldStyle",
-    "char_height": 65,  # Use char_height for MTEXT instead of height
+    "char_height": 65,  # <--- Change this to change cassette label text size
     "layer": "TEXT"
     }
 ).set_location(
@@ -437,14 +446,16 @@ for engine_info in engine_locations:
     train_func.draw_solid_dot(msp, engine_info[0], 15, engine_info[1])
 
 ############Saving objects to file#############
-
+#Creating json file
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").json"
 with open(filename, 'w', encoding='utf-8') as file:
     json.dump(json_info, file, indent=4, ensure_ascii=False)
 
-
+#Creating dxf file
 filename = "Cassette_"+str(layer-26)+str(cass_label[cassnum])+"("+str(layer)+str(cass_label[cassnum])+").dxf"
-output_folder = "TestDXFfiles"
+
+output_folder = "TestDXFfiles" # <---- Change to what you want your output folder to be
+
 file_path = os.path.join(output_folder, filename)
 doc.saveas(file_path)
 print("Saving to "+file_path) 
