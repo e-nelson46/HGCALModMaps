@@ -23,9 +23,9 @@ if layer <= 33 and layer % 2 == 1: #Odd numbered layer before 33
 elif layer <= 33 and layer % 2 == 0: #Even numbered layer before 33
     cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
     cass_label = {1:'A', 2:'B', 3:'C', 4:'D'} 
-elif layer > 33 and layer % 2 == 0:  #Odd numbered layer after 33
-    cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
-    cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}
+elif layer > 33 and layer % 2 == 1:  #Odd numbered layer after 33
+    cass_dict = {'C':1, 'D':2, 'A':3, 'B':4}
+    cass_label = {1:'C', 2:'D', 3:'A', 4:'B'}
 else: #Even numbered layer after 33
     cass_dict = {'A':1, 'B':2, 'C':3, 'D':4}
     cass_label = {1:'A', 2:'B', 3:'C', 4:'D'}    
@@ -186,9 +186,11 @@ for train in train_id:
         wagon_type = wagon_json_df["typecode"]
         json_info[f"{layer}{cass_label[cassnum]}"][f"{train_labels[str(train)]}"].update({"engine":{"u":u, 'v':v, 'type':type}, "wagon_type":wagon_type})
     elif train in isScint:
-        pass
-        #wagon_type = wagon_json_df["typecode"]
-        #json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({"wagon_type":wagon_type})
+        if train > 37:
+            wingboard = 'WM-MBH'
+        else:
+            wingboard = 'WM-MFH'
+        json_info[f"{layer}{cass_label[cassnum]}"][f"{Scint_train_label}{Scint_train_num}"].update({"wingboard":wingboard, "motherboard":'WM-MB0'})
     else:
         if wagon_json_df["typecode"].iloc[0][1] == "W":
             wagon_west = wagon_json_df["typecode"].iloc[0]
